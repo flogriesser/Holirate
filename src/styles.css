@@ -1,0 +1,262 @@
+
+.App * {
+    text-align: center;
+    font-family: Arial;
+    /*font-size: 62.5%;*/
+
+    box-sizing: content-box;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    max-width: 60em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*
+:root {
+    font-size: 62.5%;
+  }
+
+
+  * {
+    box-sizing: content-box;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+*/  
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin-bottom: 1rem;
+  }
+  
+  h1 {
+    /*font-size: 5.4rem;*/
+    margin-top: 3vh;
+    font-size: calc(2em + 1vw);
+    color: #36df7c;
+    margin-bottom: 5rem;
+  }
+  
+  h1 > span {
+    font-size: 2.4rem;
+    font-weight: 500;
+  }
+  
+  h2 {
+    /*font-size: 4.2rem;*/
+    /*font-size: 10vw;*/
+    font-size: calc(2em + 1vw);
+    margin-bottom: 2vh;
+    font-weight: 500;
+    margin: 4em;
+  }
+  
+  h3 {
+    font-size: 2.8rem;
+    font-weight: 500;
+  }
+
+
+.options > * {
+  width: 80vw;
+  height: 60vh;
+  max-width: 100em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 60rem;
+  margin: 0 auto;
+  padding: 2rem;
+  font-size: 62.5%;
+  }
+  
+  .flex-column {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .flex-center {
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .justify-center {
+    justify-content: center;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .hidden {
+    display: none;
+  }
+
+/* FORMS */
+form {
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+ul {
+    list-style-type: none;
+}
+
+ul li {
+    margin: 5px;
+}
+/*
+body{
+    display: flex;
+    justify-content: center;    
+    color:Black;
+    font-family: 'Segoe UI',;
+    font-size: 18px;
+
+ }
+*/
+.options-container {
+    display: flex;
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+    border: 0.1rem solid rgba(26, 199, 69, 0.25);
+    background-color: white;
+  }
+  
+  .options-container:hover {
+    cursor: pointer;
+    box-shadow: 0 0.4rem 1.4rem 0 rgba(93, 223, 97, 0.5);
+    transform: translateY(-0.1rem);
+    transition: transform 150ms;
+  }
+  
+  .options-prefix {
+    padding: 1.5rem 2.5rem;
+    background-color: #36df7c;
+    color: white;
+    width: 5vw;
+    font-size: 62.5%;
+    margin: 0;
+  }
+  
+  .options-text {
+    padding: 1.5rem;
+    width: 100vw;
+    font-size: 62.5%;
+  }
+  
+  /* HUD */
+  
+  #hud {
+    display: flex;
+    justify-content: space-between;
+    height: 20vh;
+  }
+  
+  .hud-prefix {
+    text-align: center;
+    /*font-size: 2rem;*/
+    font-size: calc(1em + 1vw);
+
+  }
+  
+  .hud-main-text {
+    text-align: center;
+    font-size: calc(2em + 5vh);
+
+  }
+  
+#progressBar {
+    width: calc(4em + 14vw);
+    height: 4vh;
+    border: 0.1rem solid #36df7c;
+    margin-top: 1.5rem;
+    margin-left: 0;
+    border-radius: 3vh;
+    justify-content: flex-start;
+  }
+  
+#progressBarFull {
+    height: 4vh;
+    background-color: #36df7c;
+    width: 0%;
+    margin-left: 0.1rem;
+    top:0; bottom:0;
+    border-radius: 3vh;
+  }
+  
+
+  .OwnInput {
+    width: calc(1em + 15vh);
+    padding: 1rem;
+    font-size: 1.8rem;
+    border: none;
+    box-shadow: 0 0.1rem 1.4rem 0 rgba(86, 185, 235, 0.5);
+  }
+  
+  .OwnInput::placeholder {
+    color: #aaa;
+  }
+
+  /* Submit */
+.OwnSubmit {
+  font-size: 1.8rem;
+  padding: 1rem 0;
+  width: 20rem;
+  text-align: center;
+  border: 0.1rem solid #36df7c;
+  margin-bottom: 1rem;
+  text-decoration: none;
+  color: #36df7c;
+  background-color: white;
+  margin: auto;
+}
+
+.OwnSubmit:hover {
+  cursor: pointer;
+  box-shadow: 0 0.4rem 1.4rem 0 rgba(86, 185, 235, 0.5);
+  transform: translateY(-0.1rem);
+  transition: transform 150ms;
+}
+
+.OwnSubmit[disabled]:hover {
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+
+/* BUTTONS */
+.btn {
+  font-size: 1.8rem;
+  padding: 1rem 0;
+  width: 20rem;
+  text-align: center;
+  border: 0.1rem solid #36df7c;
+  margin-bottom: 1rem;
+  text-decoration: none;
+  color: #36df7c;
+  background-color: white;
+  /*margin: auto;*/
+}
+
+.btn:hover {
+  cursor: pointer;
+  box-shadow: 0 0.4rem 1.4rem 0 rgba(86, 185, 235, 0.5);
+  transform: translateY(-0.1rem);
+  transition: transform 150ms;
+}
+
+.btn[disabled]:hover {
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
