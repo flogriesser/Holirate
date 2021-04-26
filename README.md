@@ -1,5 +1,12 @@
 # Holirate
 
+Main Files are:
+Quiz.js
+Maps.js
+Fragen.js
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
