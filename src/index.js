@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import Quiz from './components/Quiz'
 
 import './styles.css';
-//import { QuizData } from './components/QuizData';
 
 function App() {
     return (

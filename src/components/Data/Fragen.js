@@ -22,6 +22,7 @@ export const QuizData =[
   {
     id: 2,
     type: "number",
+    category: "duration",
     question: "Für wie viele Tage wird verreist?",
     options:  ["Tage", "Wochen"],
     values: [],
@@ -30,6 +31,7 @@ export const QuizData =[
   {
     id: 3,
     type: "number",
+    category: "people",
     question: "Mit wie vielen Leuten verreist Du?",
     options:  ["Erwachsene", "Kinder/Jugendliche (0-16)"],
     values: [],
@@ -45,6 +47,24 @@ export const QuizData =[
   },
   {
     id: 5,
+    type: "car",
+    category: "power",
+    question: "Welche Antriebsart verwendet dein Auto?",
+    options:  ["Benzin", "Diesel", "Elektro", "Hybrid", "Gas"],
+    values: [],
+    tipps: ["Tipp1", "Tipp2", "Tipp3", "Tipp4", "Tipp5"]
+  },
+  {
+    id: 6,
+    type: "car",
+    category: "type",
+    question: "Welcher Fahrzeugtyp wird verwendet?",
+    options:  ["Kleinwagen", "Mittelklasse", "SUV / Van"],
+    values: [],
+    tipps: ["Tipp1", "Tipp2", "Tipp3"]
+  },
+  {
+    id: 7,
     type: "transport",
     question: "Wohin geht die Reise?",
     options:  ["Startpunkt:   ", "Endpunkt:   "],
@@ -52,7 +72,15 @@ export const QuizData =[
     tipps: ["Tipp1", "Tipp2"]
   },
   {
-    id: 6,
+    id: 8,
+    type: "flight",
+    question: "Wohin geht die Reise?",
+    options:  ["Startpunkt:   ", "Endpunkt:   "],
+    values: [],
+    tipps: ["Tipp1", "Tipp2"]
+  },
+  {
+    id: 9,
     type: "single",
     question: "Wie wird sich vor Ort bewegt?",
     options: ["Auto", "Zu Fuß", "Zug", "E-Scooter", "Bus", "Motorrad","Fahrrad", "Boot"],
@@ -60,23 +88,16 @@ export const QuizData =[
     tipps: ["Tipp1", "Tipp2", "Tipp3", "Tipp4", "Tipp5", "Tipp6","Tipp7", "Tipp8"]
   },
   {
-    id: 7,
+    id: 10,
     type: "number",
-    question: "Wie lange dauert die Anreise?",
-    options:  ["Tage", "Stunden"],
-    values: [],
-    tipps: ["Tipp1", "Tipp2"]
-  },
-  {
-    id: 8,
-    type: "number",
+    category: "baggage",
     question: "Mit wie viel Gepäck wird verreist?",
     options:  ["Kilo", "Anzahl"],
     values: [],
     tipps: ["Tipp1", "Tipp2"]
   },
   {
-    id: 9,
+    id: 11,
     type: "single",
     question: "Welcher Souvenier-Typ bis du?",
     options: ["Oma bekommt immer eine Postkarte", "Magnete für alle meine Freunde.", "Eine getöpferte Tasse für Mama.", "Muscheln und Sand vom Strand", 
@@ -85,11 +106,52 @@ export const QuizData =[
     tipps: ["Tipp1", "Tipp2", "Tipp3", "Tipp4", "Tipp5", "Tipp6","Tipp7", "Tipp8"]
   },
   {
-    id: 10,
+    id: 12,
     type: "single",
     question: "Wie erzählst du anderen von deiner Reise?",
     options: ["Posts bei Insta & Co.", "Ich rufe Mama an und erzähle alles.", "Ich drucke alle Fotos aus.", "Ich gestalte ein Fotoalbum.", "Ich lade zum Diashow-Abend ein"],
     values: [3,3,2,1,3],
     tipps: ["Tipp1", "Tipp2", "Tipp3", "Tipp4", "Tipp5"]
+  }
+]
+
+export const carData = [
+  {
+    id: 0,
+    type: "car",
+    category: "power",
+    question: "Welche Antriebsart verwendet dein Auto?",
+    options:  ["Benzin", "Diesel", "Elektro", "Hybrid", "Gas"],
+    values: [],
+    tipps: ["Tipp1", "Tipp2", "Tipp3", "Tipp4", "Tipp5"]
+  },
+  {
+    id: 1,
+    type: "car",
+    category: "type",
+    question: "Welcher Fahrzeugtyp wird verwendet?",
+    options:  ["Kleinwagen", "Mittelklasse", "SUV / Van"],
+    values: [],
+    tipps: ["Tipp1", "Tipp2", "Tipp3"]
+  },
+  {
+    id: 5,
+    type: "transport",
+    question: "Wohin geht die Reise?",
+    options:  ["Startpunkt:   ", "Endpunkt:   "],
+    values: [],
+    tipps: ["Tipp1", "Tipp2"]
+  },
+]
+
+
+export const flightData = [
+  {
+    id: 0,
+    type: "transport",
+    question: "Wohin geht die Reise?",
+    options:  ["Startpunkt:   ", "Endpunkt:   "],
+    values: [],
+    tipps: ["Tipp1", "Tipp2"]
   }
 ]
