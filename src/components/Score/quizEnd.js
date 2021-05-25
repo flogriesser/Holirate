@@ -4,6 +4,12 @@ import { QuizData } from '../Data/Fragen';
 
 class QuizEnds extends Component{
 
+    calculateC02 = () => {
+        const {distance, carType, carPower} = this.props.state;
+        
+
+    }
+
     
     render(){
         const {score, distance, ChoosenTipps} = this.props.state;
@@ -27,8 +33,6 @@ class QuizEnds extends Component{
                 </div>
             </div>
             <h2>Kilometer: {distance}</h2>
-            <h1>TravelMode {this.props.state.TravelMode}</h1>
-            <h1>adults {this.props.state.adults}</h1>
             <br></br>
             <h4>Hier noch ein paar Tipps für deine Reise</h4>
             <br></br>

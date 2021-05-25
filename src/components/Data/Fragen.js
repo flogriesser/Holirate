@@ -21,21 +21,19 @@ export const QuizData =[
   },
   {
     id: 2,
-    type: "number",
-    category: "duration",
+    type: "single",
     question: "Für wie viele Tage wird verreist?",
-    options:  ["Tage", "Wochen"],
-    values: [],
-    tipps: ["Tipp1", "Tipp2"]
+    options:  ["1 Tag", "3 Tage", "5 Tage", "7 Tage", "10 Tage", "14 Tage", "über 2 Wochen"],
+    values: [0,1,2,3,4,5,6],
+    tipps: ["Tipp1", "Tipp2", "Tipp3", "Tipp4", "Tipp5", "Tipp6", "Tipp7"]
   },
   {
     id: 3,
-    type: "number",
-    category: "people",
+    type: "single",
     question: "Mit wie vielen Leuten verreist Du?",
-    options:  ["Erwachsene", "Kinder/Jugendliche (0-16)"],
-    values: [],
-    tipps: ["Tipp1", "Tipp2"]
+    options:  ["Alleine", "Gruppe", "Familie"],
+    values: [1,2,4],
+    tipps: ["Tipp1", "Tipp2", "Tipp3"]
   },
   {
     id: 4,
@@ -89,15 +87,6 @@ export const QuizData =[
   },
   {
     id: 10,
-    type: "number",
-    category: "baggage",
-    question: "Mit wie viel Gepäck wird verreist?",
-    options:  ["Kilo", "Anzahl"],
-    values: [],
-    tipps: ["Tipp1", "Tipp2"]
-  },
-  {
-    id: 11,
     type: "single",
     question: "Welcher Souvenier-Typ bis du?",
     options: ["Oma bekommt immer eine Postkarte", "Magnete für alle meine Freunde.", "Eine getöpferte Tasse für Mama.", "Muscheln und Sand vom Strand", 
@@ -106,7 +95,7 @@ export const QuizData =[
     tipps: ["Tipp1", "Tipp2", "Tipp3", "Tipp4", "Tipp5", "Tipp6","Tipp7", "Tipp8"]
   },
   {
-    id: 12,
+    id: 11,
     type: "single",
     question: "Wie erzählst du anderen von deiner Reise?",
     options: ["Posts bei Insta & Co.", "Ich rufe Mama an und erzähle alles.", "Ich drucke alle Fotos aus.", "Ich gestalte ein Fotoalbum.", "Ich lade zum Diashow-Abend ein"],

@@ -20,6 +20,7 @@ class Singlequestion extends React.Component{
             points = QuizData[currentIndex].values[index];
         }
 
+
         this.props.callbackSingleQuestion(index, points, Travelmode);
     }/*checkAnswer*/
 

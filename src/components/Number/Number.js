@@ -1,6 +1,18 @@
 import { Component } from "react";
 import { QuizData } from '../Data/Fragen';
 
+
+//Class is obsolete right now
+/*
+        } else if (type === "number") {
+            return (
+                    <Number state={this.state}  callbackPeople={this.callbackPeople} 
+                                                callbackDuration={this.callbackDuration} 
+                                                callbackBaggage={this.callbackBaggage}
+                    />                
+                )
+*/
+
 class Number extends Component{
 
     checkDuration = () =>{
@@ -78,3 +90,36 @@ class Number extends Component{
 }
 
 export default Number;
+
+//Callback Functions for mother class
+/*
+
+    callbackPeople = (Adults, Childs) =>{
+
+        this.setState({
+            adults: Adults,
+            children: Childs,
+            currentIndex: this.state.currentIndex + 1,
+        })
+    }
+
+    callbackDuration = (days, weeks) =>{
+
+        this.setState({
+            days: days,
+            weeks: weeks,
+            currentIndex: this.state.currentIndex + 1,
+        })
+    }
+
+
+    callbackBaggage = (number, kilo) =>{
+
+        this.setState({
+            num_baggage:0,
+            kilo_baggage: 0,
+            currentIndex: this.state.currentIndex + 1,
+        })
+
+    }
+*/

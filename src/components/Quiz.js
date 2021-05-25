@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import { QuizData } from './Data/Fragen';
 import './circle.css';
-//import {initialize, notFound, foundYou, calcRoute} from './Maps/maps';
 import { LoadScript } from "@react-google-maps/api";
+
 import Map from "./Maps/maps";
 
 import Singlequestion from './SingleQuestion/singleQuestion';
 import QuizEnds from './Score/quizEnd';
-import Number from './Number/Number';
 import Car from './Maps/car';
 import Flight from './Flight/flight';
 
@@ -150,34 +149,6 @@ class Quiz extends Component {
         this.nextQuestionHander();
     }
 
-    callbackPeople = (Adults, Childs) =>{
-
-        this.setState({
-            adults: Adults,
-            children: Childs,
-            currentIndex: this.state.currentIndex + 1,
-        })
-    }
-
-    callbackDuration = (days, weeks) =>{
-
-        this.setState({
-            days: days,
-            weeks: weeks,
-            currentIndex: this.state.currentIndex + 1,
-        })
-    }
-
-
-    callbackBaggage = (number, kilo) =>{
-
-        this.setState({
-            num_baggage:0,
-            kilo_baggage: 0,
-            currentIndex: this.state.currentIndex + 1,
-        })
-
-    }
     callbackFlight = (distance) =>{
         
     }
@@ -219,13 +190,6 @@ class Quiz extends Component {
                 currentIndex={this.state.currentIndex} 
                 question={this.state.question} 
                 callbackFlight={this.props.callbackFlight}/>
-                )
-        } else if (type === "number") {
-            return (
-                    <Number state={this.state}  callbackPeople={this.callbackPeople} 
-                                                callbackDuration={this.callbackDuration} 
-                                                callbackBaggage={this.callbackBaggage}
-                    />                
                 )
         } else if (type === "transport") {
             return (
