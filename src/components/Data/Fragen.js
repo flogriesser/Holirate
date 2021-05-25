@@ -48,9 +48,9 @@ export const QuizData =[
     type: "car",
     category: "power",
     question: "Welche Antriebsart verwendet dein Auto?",
-    options:  ["Benzin", "Diesel", "Elektro", "Hybrid", "Gas"],
+    options:  ["Benzin", "Diesel", "Elektro", "Gas"],
     values: [],
-    tipps: ["Tipp1", "Tipp2", "Tipp3", "Tipp4", "Tipp5"]
+    tipps: ["Tipp1", "Tipp2", "Tipp3", "Tipp4"]
   },
   {
     id: 6,
@@ -104,7 +104,7 @@ export const QuizData =[
   }
 ]
 
-export const carData = [
+export const carPower = [
   {
     id: 0,
     type: "car",

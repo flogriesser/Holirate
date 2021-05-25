@@ -28,7 +28,7 @@ class Car extends React.Component{
             this.props.callbackCarType(index);
         }
         else{
-            this.props.callbackCarType(index);
+            this.props.callbackCarPower(index);
         }
 
     }/*checkAnswer*/

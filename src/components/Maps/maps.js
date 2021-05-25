@@ -1,7 +1,7 @@
 /*global google*/
 //import ReactDOM from "react-dom";
 import React from "react";
-import Quiz from "../Quiz"
+//import Quiz from "../Quiz"
 import { QuizData } from '../Data/Fragen';
 
 

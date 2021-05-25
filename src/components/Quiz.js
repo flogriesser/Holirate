@@ -29,14 +29,9 @@ class Quiz extends Component {
         TravelMode: 'Car',
         co2: 0,
 
-        adults: 0,
-        children: 0,
-
         num_backpags:0,
         kilo_backpags: 0,
 
-        days: 0,
-        weeks: 0,
 
         carType: 0,
         carPower: 0,
