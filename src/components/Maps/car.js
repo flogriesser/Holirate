@@ -1,3 +1,10 @@
+/*
+ * @Author: Florian Griesser 
+ * @Date: 2021-05-29 10:28:59 
+ * @Last Modified by: Florian Griesser
+ * @Last Modified time: 2021-05-29 17:36:52
+ */
+
 import React from "react";
 import { QuizData } from '../Data/Fragen';
 
@@ -42,9 +49,6 @@ class Car extends React.Component{
             <div>
                 <div id="hud">
                     <div id="hud-item">
-                        <p className="hud-prefix">
-                            Question {currentIndex + 1} / {QuizData.length}
-                        </p>
                         <div id="progressBar">
                             <div id="progressBarFull" style={{ width: `${(currentIndex / QuizData.length) * 100}%` }}></div>
                         </div>

@@ -1,7 +1,15 @@
+/*
+ * @Author: Florian Griesser 
+ * @Date: 2021-05-29 10:28:56 
+ * @Last Modified by: Florian Griesser
+ * @Last Modified time: 2021-05-29 18:29:21
+ */
 import React, { Component } from 'react'
 import { QuizData } from './Data/Fragen';
 import './circle.css';
 import { LoadScript } from "@react-google-maps/api";
+
+//import { BasicMap } from "./Maps/OSM/OSMtest";
 
 import Map from "./Maps/maps";
 
@@ -29,8 +37,8 @@ class Quiz extends Component {
         TravelMode: 'Car',
         co2: 0,
 
-        num_backpags:0,
-        kilo_backpags: 0,
+        /*num_backpags:0,*/    /*TODO not needed right now*/
+        /*kilo_backpags: 0,*/  /*TODO not needed right now*/
 
 
         carType: 0,
@@ -161,7 +169,6 @@ class Quiz extends Component {
 
     render() {
         const {quizEnd, currentIndex} = this.state //get the current state     
-        console.log(this.state.TravelMode);
         var type = QuizData[currentIndex].type;
 
         if (quizEnd) {
@@ -189,13 +196,8 @@ class Quiz extends Component {
         } else if (type === "transport") {
             return (
                 <div>
-                    <LoadScript googleMapsApiKey={key} libraries={lib}>
-                        <Map    score={this.state.score} 
-                                currentIndex={this.state.currentIndex} 
-                                question={this.state.question} 
-                                TravelMode={this.state.TravelMode}
-                                setDistance={this.setDistance}/>
-                    </LoadScript>
+                    <Map    state={this.state} 
+                            setDistance={this.setDistance}/>
                     <br></br>
                     <div className="OwnSubmit"
                             onClick={() => this.afterMap()}>
@@ -216,6 +218,25 @@ class Quiz extends Component {
     }/*render*/
 
 }/*Quiz*/
+
+
+/*Maps:
+
+                <div>
+                    <LoadScript googleMapsApiKey={key} libraries={lib}>
+                        <Map    score={this.state.score} 
+                                currentIndex={this.state.currentIndex} 
+                                question={this.state.question} 
+                                TravelMode={this.state.TravelMode}
+                                setDistance={this.setDistance}/>
+                    </LoadScript>
+                    <br></br>
+                    <div className="OwnSubmit"
+                            onClick={() => this.afterMap()}>
+                        Submit</div>
+            </div > )
+  
+*/
 
 
 export default Quiz;

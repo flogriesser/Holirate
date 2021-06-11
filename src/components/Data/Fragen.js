@@ -1,23 +1,47 @@
+/*
+ * @Author: Florian Griesser 
+ * @Date: 2021-05-29 10:28:13 
+ * @Last Modified by: Florian Griesser
+ * @Last Modified time: 2021-06-08 10:19:04
+ */
+
 export const QuizData =[
   {
     id: 0,
     type: "single",
     question : "Welche Art der Reise ist geplant?",
-    options: ["Bergurlaub", "Wellness", "Flussreise", "Cluburlaub", "Strandurlaub", "Kreuzfahrt", "Natururlaub", 
-    "Studienreise", "Städte-Reise", "Jugendfreizeit", "Kultur-Reise", "Incentive-Reise", "Bauernhof", "Work & Travel",
+    options: ["Bergurlaub", "Wellness", "Flussreise", "Cluburlaub", "Strandurlaub", "Kreuzfahrt",
+              "Städte-Reise", "Jugendfreizeit", "Kultur-Reise", "Bauernhof", "Work & Travel",
     "Sporturlaub", "Back-Packing"],
     values: [5,4,2,2,2,1,5,4,3,3,3,3,5,4,3,3],
-    tipps: ["Tipp1", "Tipp2", "Tipp3", "Tipp4", "Tipp5", "Tipp6", "Tipp7", 
-    "Tipp8", "Tipp9", "Tipp10", "Tipp11", "Tipp12", "Tipp13", "Tipp14",
-    "Tipp15", "Tipp16"]
+    tipps: [  "Nimm deinen Müll mit wenn du unterwegs bist. Die Umwelt wird's dir danken.",
+              "Hast du schonmal darauf geachtet, ob die Wellnessunterkunft zertifiziert ist? Ein kleiner Check lohnt sich.",
+              "Schau bei den Zwischenstopps auch mal bei den lokalen Geschäften vorbei. Hier warten Überraschungen auf dich!",
+              "Muss es immer All-Inclusive sein? Wenn du deine individuelle Reise planst, entscheidest du selbst, wofür du vor Ort dein Geld ausgibst und wie viel. So hast du unterwegs einen positiven Einfluss auf die lokalen Gegebenheiten.",
+              "Nimm deinen Müll mit wenn du unterwegs bist. Die Umwelt wird's dir danken.",
+              "Schau doch auf einem lokalen Markt vorbei! Du wirst erstaunt sein, welche Überraschungen hier auf dich warten.",
+              "Städtereisen sind beliebte Kurzreisen, dabei gibt es so viele Ecken in einer Stadt zu entdecken. Ein längerer Aufenthalt ist durchaus lohnenswert.",
+              "Reist doch alle zusammen z.B. mit dem Bus an.",
+              "Nutze die Gelegenheit, dich auch mit den Einheimischen zu unterhalten! Durch die Kultur lernst du auch, wie du dich in der Destination verhalten solltest.",
+              "Versuche doch, das ein oder andere, was du vom Alltag auf dem Bauernhof lernst, auch zu Hause in deine Routine einzubauen. Man kann so vieles ganz einfach selbst herstellen!",
+              "Stell dir vor, wie viel du erleben kannst, wenn du ein kleines Bisschen länger an einem Ort bleibst. Lass dich von den Einheimischen ihre Lebensart zeigen.",
+              "Sportshirts lassen sich schnell waschen und wieder trocknen, daher kannst du unnotige Last mit ein wenig Waschmittel ersetzen.",
+              "Weniger Gepäck ist oft mehr! Meistens brauchst du nicht so viel und dein Rucksack wird nur unnötig schwer. Außerdem bist du viel flexibler!"
+            ]
   },
   {
     id: 1,
     type: "single",
     question : "Für welche Art der Unterkunft hast du Dich entschieden?",
-    options: ["Hotel", "AirBnB", "Hostel", "Privat-Unterkunft", "Jugendherberge", "Couch-Surfing", "Camping-Platz", "Sternenhimmel"],
+    options: ["Hotel", "AirBnB", "Hostel", "Privat-Unterkunft", "Couch-Surfing", "Camping-Platz"],
     values: [1, 2, 2, 3, 3, 4, 4, 5],
-    tipps: ["Tipp1", "Tipp2", "Tipp3", "Tipp4", "Tipp5", "Tipp6", "Tipp7", "Tipp8"]
+    tipps: ["Den Luxus eines all-inklusiv Hotels bezahlt sehr oft die Umwelt. Etwas weniger ist hier oft mehr!", 
+            "Fast, als würde man bei einem Freund übernachten. Frag doch mal den Gastgeber nach seinen Insider-Tipps!", 
+            "Hier gibt es meist tolle möglichkeiten Leute kennenzulernen. Perfekt, um ganz besondere Erinnerungen zu sammeln.", 
+            "Behalte deinen Energie- und Wasserverbraucht im Auge.",
+            "Tolle Entscheidung! So hast du gleich Kontakt zu Locals und kannst dich voll auf die Reise einlassen. Falls du mal kein Antwort auf deine Anfrag erhälst lass dich nicht unter kriegen. Es gibt verdammt viele inaktive Nutzer.",
+            "Naturnah, flexibel und unter Menschen! Vergiss nicht, dass man sein Zelt nicht in Mulden aufbauen sollte, falls es doch mal regnet.",
+          ]
   },
   {
     id: 2,
@@ -25,7 +49,14 @@ export const QuizData =[
     question: "Für wie viele Tage wird verreist?",
     options:  ["1 Tag", "3 Tage", "5 Tage", "7 Tage", "10 Tage", "14 Tage", "über 2 Wochen"],
     values: [0,1,2,3,4,5,6],
-    tipps: ["Tipp1", "Tipp2", "Tipp3", "Tipp4", "Tipp5", "Tipp6", "Tipp7"]
+    tipps: ["Überlege dir ob du nicht eine lange Reise, als viele kurze machen willst. Das schohnt die Umwelt, aber noch viel mehr deine Nerven und du kannst dich besser erholen.",
+            "Überlege dir ob du nicht eine lange Reise, als viele kurze machen willst. Das schohnt die Umwelt, aber noch viel mehr deine Nerven und du kannst dich besser erholen.",
+            "Überlege dir ob du nicht eine lange Reise, als viele kurze machen willst. Das schohnt die Umwelt, aber noch viel mehr deine Nerven und du kannst dich besser erholen.",
+            "Überlege dir ob du nicht eine lange Reise, als viele kurze machen willst. Das schohnt die Umwelt, aber noch viel mehr deine Nerven und du kannst dich besser erholen.",
+            "Überlege dir ob du nicht eine lange Reise, als viele kurze machen willst. Das schohnt die Umwelt, aber noch viel mehr deine Nerven und du kannst dich besser erholen.",
+            "Überlege dir ob du nicht eine lange Reise, als viele kurze machen willst. Das schohnt die Umwelt, aber noch viel mehr deine Nerven und du kannst dich besser erholen.",
+            "Überlege dir ob du nicht eine lange Reise, als viele kurze machen willst. Das schohnt die Umwelt, aber noch viel mehr deine Nerven und du kannst dich besser erholen.",
+              ]
   },
   {
     id: 3,
@@ -33,7 +64,9 @@ export const QuizData =[
     question: "Mit wie vielen Leuten verreist Du?",
     options:  ["Alleine", "Gruppe", "Familie"],
     values: [1,2,4],
-    tipps: ["Tipp1", "Tipp2", "Tipp3"]
+    tipps: ["Alleine Anreisen ist oft sehr umweltschädlich. Such doch in deinem Umfeld oder auf z.B. https://www.blablacar.de nach Mitfahrern.", 
+            "Tipp2", 
+            "Tipp3"]
   },
   {
     id: 4,
@@ -81,9 +114,15 @@ export const QuizData =[
     id: 9,
     type: "single",
     question: "Wie wird sich vor Ort bewegt?",
-    options: ["Auto", "Zu Fuß", "Zug", "E-Scooter", "Bus", "Motorrad","Fahrrad", "Boot"],
+    options: ["Auto", "Zu Fuß", "Zug", "Bus", "Motorrad","Fahrrad", "Boot"],
     values: [1,5,3,4,4,3,5,2],
-    tipps: ["Tipp1", "Tipp2", "Tipp3", "Tipp4", "Tipp5", "Tipp6","Tipp7", "Tipp8"]
+    tipps: ["Tipp1",
+            "Tipp2",
+            "Der Zug ist die perfekte Möglichkeit dein Wunschziel mit dem Rad zu erkundigen!",
+            "Vergiss deine Kopfhörer nicht und ggf. ein Kissen. ",
+            "Tipp6",
+            "Toll! Die perfekte Mischung aus Erlebnis, Sport und Erholung mit der höchsten Flexibilität! Flickzeug nicht vergessen :)",
+            "Selbst gerudert ist halb gewonnen. "]
   },
   {
     id: 10,
@@ -100,10 +139,16 @@ export const QuizData =[
     question: "Wie erzählst du anderen von deiner Reise?",
     options: ["Posts bei Insta & Co.", "Ich rufe Mama an und erzähle alles.", "Ich drucke alle Fotos aus.", "Ich gestalte ein Fotoalbum.", "Ich lade zum Diashow-Abend ein"],
     values: [3,3,2,1,3],
-    tipps: ["Tipp1", "Tipp2", "Tipp3", "Tipp4", "Tipp5"]
+    tipps: ["Tipp1", 
+            "Tipp2", 
+            "Tipp3", 
+            "Tipp4", 
+            "Tipp5"]
   }
 ]
 
+
+//Obsolete:
 export const carPower = [
   {
     id: 0,
