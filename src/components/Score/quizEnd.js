@@ -2,12 +2,14 @@
  * @Author: Florian Griesser 
  * @Date: 2021-05-29 10:29:35 
  * @Last Modified by: Florian Griesser
- * @Last Modified time: 2021-05-29 10:32:03
+ * @Last Modified time: 2021-06-11 23:38:42
  */
 
 import { Component } from "react";
 import {carValues} from "../Data/Data";
 //import { QuizData } from '../Data/Fragen';
+import './circle.css';
+
 
 
 
@@ -19,47 +21,69 @@ class QuizEnds extends Component{
 
 
 
-        return Factor*distance;
+        return (Factor*distance).toFixed(0);
     }
 
     calculateTrain = () => {
         const {distance} = this.props.state;
 
-        return 0.032*distance;
+        return (0.032*distance).toFixed(0);
+    }
+    calculateFlight = (distance) =>{
+
+        return (0.369*distance).toFixed(0);
+        }
+
+    calcScore = (co2) => {
+        var score = 0;
+        
+        score = 75 - co2*75/2500;
+        
+        if(co2 > 2500){
+            score = 0;
+        }
+
+        return score;
     }
 
     
     render(){
         const {score, distance, ChoosenTipps, TravelMode, carPower, carType} = this.props.state;
         var co2 = 0;
-
+        var EndScore = score;
         if(TravelMode === 'Car'){
             co2 = this.calculateCar(distance, carPower, carType);
         }
+        else if(TravelMode === 'Train'){
+            co2 = this.calculateTrain(distance);
+        }
+        else if(TravelMode === 'Fligth'){
+            co2 =this.calculateFlight(distance);
+        }
+
+        EndScore = (EndScore + this.calcScore(co2)).toFixed(0);
+        var circle = "c100 p"+ EndScore+ " big green";
 
     return (
         <div>
             <h1>Dein Holirate Rating ist fertig!</h1>
-            <div className="circle-wrap">
-                <div className="circle">
-
-                    <div className="mask full">
-                        <div className="fill" ></div>
-                    </div>
-
-                    <div className="mask half">
-                        <div className="fill" style={{ transform: `rotate(${360 * score / 100}deg)` }}></div>
-                    </div>
-
-                    <div className="inside-circle">
-                        {score}%
+            <br></br>
+            <div id="circle-space">
+                    <div class={circle}>
+                    <span>{EndScore}%</span>
+                    <div class="slice">
+                        <div class="bar"></div>
+                        <div class="fill"></div>
                     </div>
                 </div>
-            </div>
+                </div>
+            <br></br>
             <h2>Kilometer: {distance}</h2>
             <br></br>
-            <h2>C02: {co2}</h2>
+            <h2>C02: {co2} kg</h2>
             <br></br>
+
+            
             <h4>Hier noch ein paar Tipps für deine Reise</h4>
             <br></br>
             <ul>
@@ -77,17 +101,3 @@ class QuizEnds extends Component{
 }
 
 export default QuizEnds;
-
-
-/*
-            <h1>{this.props.state.co2} co2</h1>
-            <h1>{this.props.state.adults} adults</h1>
-            <h1>{this.props.state.children} children</h1>
-            <h1>{this.props.state.num_backpags} num_backpags</h1>
-            <h1>{this.props.state.kilo_backpags} kilo_backpags</h1>
-            <h1>{this.props.state.days} days</h1>
-            <h1>{this.props.state.weeks} weeks</h1>
-            <h1>{this.props.state.carType} carType</h1>
-            <h1>{this.props.state.carPower} carPower</h1>
-
-*/

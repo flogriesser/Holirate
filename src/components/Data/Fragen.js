@@ -2,7 +2,7 @@
  * @Author: Florian Griesser 
  * @Date: 2021-05-29 10:28:13 
  * @Last Modified by: Florian Griesser
- * @Last Modified time: 2021-06-08 10:19:04
+ * @Last Modified time: 2021-06-11 22:43:47
  */
 
 export const QuizData =[
@@ -72,9 +72,9 @@ export const QuizData =[
     id: 4,
     type: "single",
     question: "Mit welchem Transportmittel vereist du?",
-    options:  ["Auto", "Flugzeug", "Zug", "Fahrrad"],
+    options:  ["Auto", "Flugzeug", "Zug"],
     values: [],
-    tipps: ["Tipp1", "Tipp2", "Tipp3", "Tipp4"]
+    tipps: ["Tipp1", "Tipp2", "Tipp3"]
   },
   {
     id: 5,

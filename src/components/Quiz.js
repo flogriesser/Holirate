@@ -2,14 +2,12 @@
  * @Author: Florian Griesser 
  * @Date: 2021-05-29 10:28:56 
  * @Last Modified by: Florian Griesser
- * @Last Modified time: 2021-05-29 18:29:21
+ * @Last Modified time: 2021-06-11 21:43:08
  */
 import React, { Component } from 'react'
 import { QuizData } from './Data/Fragen';
 import './circle.css';
-import { LoadScript } from "@react-google-maps/api";
 
-//import { BasicMap } from "./Maps/OSM/OSMtest";
 
 import Map from "./Maps/maps";
 
@@ -18,8 +16,6 @@ import QuizEnds from './Score/quizEnd';
 import Car from './Maps/car';
 import Flight from './Flight/flight';
 
-const lib = ["places"];
-const key = "AIzaSyAF6K0mCOn8PxRcsTPBapCtXyr_zZ6OWGk"; // PUT GMAP API KEY HERE
 
 class Quiz extends Component {
 
@@ -121,8 +117,9 @@ class Quiz extends Component {
         this.setState({
             carType: index
         })
-
-        this.state.ChoosenTipps.push(QuizData[this.state.currentIndex].tipps[index]);
+        if(QuizData[this.state.currentIndex].tipps[index].startsWith('Tipp') === false){
+            this.state.ChoosenTipps.push(QuizData[this.state.currentIndex].tipps[index]);
+        }
         this.nextQuestionHander();
     }
 
@@ -153,7 +150,14 @@ class Quiz extends Component {
     }
 
     callbackFlight = (distance) =>{
-        
+        return 0.369*distance;
+    }
+    
+    callbackMaps = (distance) =>{
+        this.setState({
+            distance: distance
+        })
+        this.nextQuestionHander();
     }
 
     //Responds to the click of the finish button
@@ -197,12 +201,9 @@ class Quiz extends Component {
             return (
                 <div>
                     <Map    state={this.state} 
-                            setDistance={this.setDistance}/>
+                            callbackMaps={this.callbackMaps}/>
                     <br></br>
-                    <div className="OwnSubmit"
-                            onClick={() => this.afterMap()}>
-                        Submit</div>
-            </div > )
+                </div > )   
         }else if(type === "single") {
             return(
                 <Singlequestion state={this.state} callbackSingleQuestion={this.callbackSingleQuestion}/>
@@ -218,25 +219,6 @@ class Quiz extends Component {
     }/*render*/
 
 }/*Quiz*/
-
-
-/*Maps:
-
-                <div>
-                    <LoadScript googleMapsApiKey={key} libraries={lib}>
-                        <Map    score={this.state.score} 
-                                currentIndex={this.state.currentIndex} 
-                                question={this.state.question} 
-                                TravelMode={this.state.TravelMode}
-                                setDistance={this.setDistance}/>
-                    </LoadScript>
-                    <br></br>
-                    <div className="OwnSubmit"
-                            onClick={() => this.afterMap()}>
-                        Submit</div>
-            </div > )
-  
-*/
 
 
 export default Quiz;
