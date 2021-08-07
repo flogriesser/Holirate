@@ -2,7 +2,7 @@
  * @Author: Florian Griesser 
  * @Date: 2021-05-29 10:29:35 
  * @Last Modified by: Florian Griesser
- * @Last Modified time: 2021-06-11 23:38:42
+ * @Last Modified time: 2021-06-12 08:35:57
  */
 
 import { Component } from "react";
@@ -44,6 +44,11 @@ class QuizEnds extends Component{
         }
 
         return score;
+    }
+
+    compareCo2 = (TravelMode, co2) =>{
+
+
     }
 
     
