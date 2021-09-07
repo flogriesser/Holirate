@@ -5,10 +5,13 @@
  * @Last Modified time: 2021-06-11 23:36:57
  */
 
+@import url("//unpkg.com/element-ui@2.15.5/lib/theme-chalk/index.css");
+
+/*
 .App * {
     text-align: center;
     font-family: Arial;
-    /*font-size: 62.5%;*/
+    font-size: 62.5%;
 
     box-sizing: content-box;
     font-family: Arial, Helvetica, sans-serif;
@@ -19,7 +22,7 @@
     margin-left: auto;
     margin-right: auto;
 }
-
+*/
 /*
 :root {
     font-size: 62.5%;
@@ -34,6 +37,7 @@
     color: #333;
   }
 */  
+/*
   h1,
   h2,
   h3,
@@ -42,7 +46,6 @@
   }
   
   h1 {
-    /*font-size: 5.4rem;*/
     margin-top: 3vh;
     font-size: calc(2em + 1vw);
     color: #287233;
@@ -55,8 +58,6 @@
   }
   
   h2 {
-    /*font-size: 4.2rem;*/
-    /*font-size: 10vw;*/
     font-size: calc(2em + 1vw);
     margin-bottom: 2vh;
     font-weight: 500;
@@ -67,7 +68,7 @@
     font-size: 2.8rem;
     font-weight: 500;
   }
-
+*/
 
 .options > * {
   width: 80vw;

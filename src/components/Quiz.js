@@ -27,6 +27,7 @@ class Quiz extends Component {
         values: null,         //Values of Single or Multiple choice
         tipps: null,
         ChoosenTipps: [],
+        ChoosenHeadlines: [],
         quizEnd: false,
         score: 0,
         distance: 0,
@@ -117,9 +118,14 @@ class Quiz extends Component {
         this.setState({
             carType: index
         })
+        /*
         if(QuizData[this.state.currentIndex].tipps[index].startsWith('Tipp') === false){
             this.state.ChoosenTipps.push(QuizData[this.state.currentIndex].tipps[index]);
         }
+        */
+        this.state.ChoosenTipps.push(QuizData[this.state.currentIndex].tipps[index]);
+        this.state.ChoosenHeadlines.push(QuizData[this.state.currentIndex].headline);
+        console.log(this.state.ChoosenHeadlines);
         this.nextQuestionHander();
     }
 
@@ -129,6 +135,8 @@ class Quiz extends Component {
         })
 
         this.state.ChoosenTipps.push(QuizData[this.state.currentIndex].tipps[index]);
+        this.state.ChoosenHeadlines.push(QuizData[this.state.currentIndex].headline);
+        console.log(this.state.ChoosenHeadlines);
         this.nextQuestionHander();
     }
 
@@ -144,8 +152,10 @@ class Quiz extends Component {
             })
         }
 
+        this.state.ChoosenHeadlines.push(QuizData[this.state.currentIndex].headline);
         this.state.ChoosenTipps.push(QuizData[currentIndex].tipps[index]);
 
+        console.log(this.state.ChoosenHeadlines);
         this.nextQuestionHander();
     }
 

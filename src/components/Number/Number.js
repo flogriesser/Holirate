@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { QuizData } from '../Data/Fragen';
+import { ScoreHeader } from "../stylesUI";
 
 
 //Class is obsolete right now
@@ -53,25 +54,7 @@ class Number extends Component{
         
         return (
             <div>
-                <div id="hud">
-                    <div id="hud-item">
-                        <p className="hud-prefix">
-                            Question {currentIndex + 1} / {QuizData.length}
-                        </p>
-                        <div id="progressBar">
-                            <div id="progressBarFull" style={{ width: `${(currentIndex / QuizData.length) * 100}%` }}></div>
-                        </div>
-                    </div>
-                    <div id="hud-item">
-                        <p className="hud-prefix">
-                            Score
-                        </p>
-                        <h1 className="hud-main-text" id="score">
-                            {score}
-                        </h1>
-                    </div>
-                </div>
-                <br></br>
+                <ScoreHeader score={score} currentIndex={currentIndex} />
                 <h2>{question}</h2>
                 {
                     options.map((option, index) => (  //for each option, new paragrap

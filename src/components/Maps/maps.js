@@ -7,8 +7,15 @@
 
 //import ReactDOM from "react-dom";
 import React from "react";
-//import Quiz from "../Quiz"
-import { QuizData } from '../Data/Fragen';
+//import { QuizData } from '../Data/Fragen';
+import TextField from '@material-ui/core/TextField';
+import FormLabel from '@material-ui/core/FormLabel'
+import FormControl from '@material-ui/core/FormControl';
+import Grid from '@material-ui/core/Grid';
+import { ThemeProvider } from "@material-ui/core";
+import { ScoreHeader, theme } from "../stylesUI";
+import Button from '@material-ui/core/Button';
+
 
 
 class Map extends React.Component {
@@ -17,47 +24,58 @@ class Map extends React.Component {
     bounds: null
   };
 
-getNumber = () =>{
-  var distance = document.getElementById(0).value;
-  console.log(distance);
-  if(distance != ""){
-  this.props.callbackMaps(distance);
-  }else{
-    this.render();
+  getNumber = () => {
+    var distance = document.getElementById(0).value;
+    console.log(distance);
+    if (distance !== "") {
+      this.props.callbackMaps(distance);
+    } else {
+      this.render();
+    }
   }
-}
 
-  
+
   render() {
-    const currentIndex = this.props.state.currentIndex;
+    const { currentIndex, score } = this.props.state;
     return (
-        <div>
-        <div id="hud">
-          <div id="hud-item">
-            <div id="progressBar">
-              <div id="progressBarFull" style={{ width: `${(currentIndex / QuizData.length) * 100}%` }}></div>
-            </div>
-          </div>
-          <div id="hud-item">
-            <p className="hud-prefix">
-              Score
-            </p>
-            <h1 className="hud-main-text" id="score">
-              {this.props.state.score}
-            </h1>
-          </div>
-        </div>
-        <br></br>
-        <h2>{this.props.state.question}</h2>
-        <br></br>
-        <div key="0" className={`options-container`}>
-                            <p className="options-text">Kilometer</p>
-                            <input className="OwnInput" type="number" id="0" name="quantity" min="1" placeholder="1" required></input>
-        </div>
-        <br></br>
-        <div className="OwnSubmit"
-                    onClick={() => this.getNumber()}>
-                    Submit</div>
+      <div>
+        <ScoreHeader score={score} currentIndex={currentIndex} />
+        <Grid container maxwidth="false" align="center" justifyContent="center" alignItems="center" >
+          <Grid item xs={12} sm={12} md={6} lg={4}
+            style={{
+              textAlign: 'center',
+              align: 'center',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '80%',
+              margin: 'center'
+            }}
+          >
+            <FormControl component="fieldset" >
+              <FormLabel component="legend" aligncontent="center">{this.props.state.question}</FormLabel>
+              <br></br>
+              <TextField
+                id="0"
+                label="Kilometer"
+                type="number"
+                color="primary"
+                min="1" placeholder="1"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="filled"
+                required
+              />
+              <br></br>
+              <ThemeProvider theme={theme}>
+                <Button variant='contained' color='primary' onClick={this.getNumber}>
+                  Next
+                </Button>
+              </ThemeProvider>
+            </FormControl>
+          </Grid>
+        </Grid>
+
       </div>
     );
   }
