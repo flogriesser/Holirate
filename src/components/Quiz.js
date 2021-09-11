@@ -6,7 +6,6 @@
  */
 import React, { Component } from 'react'
 import { QuizData } from './Data/Fragen';
-import './circle.css';
 
 
 import Map from "./Maps/maps";
@@ -136,7 +135,6 @@ class Quiz extends Component {
 
         this.state.ChoosenTipps.push(QuizData[this.state.currentIndex].tipps[index]);
         this.state.ChoosenHeadlines.push(QuizData[this.state.currentIndex].headline);
-        console.log(this.state.ChoosenHeadlines);
         this.nextQuestionHander();
     }
 
@@ -151,18 +149,13 @@ class Quiz extends Component {
                 TravelMode: Travelmode
             })
         }
-
+        console.log(Travelmode);
         this.state.ChoosenHeadlines.push(QuizData[this.state.currentIndex].headline);
         this.state.ChoosenTipps.push(QuizData[currentIndex].tipps[index]);
 
-        console.log(this.state.ChoosenHeadlines);
         this.nextQuestionHander();
     }
 
-    callbackFlight = (distance) =>{
-        return 0.369*distance;
-    }
-    
     callbackMaps = (distance) =>{
         this.setState({
             distance: distance
@@ -192,7 +185,8 @@ class Quiz extends Component {
                 </div>
             )
         }
-        
+        console.log(currentIndex);
+        console.log(type);
 
         if (type === "car" && this.state.TravelMode === "Car"){
             return(
@@ -202,12 +196,10 @@ class Quiz extends Component {
             )
         }else if (type === "flight" && this.state.TravelMode === "Flight"){
             return(
-                <Flight score={this.state.score} 
-                currentIndex={this.state.currentIndex} 
-                question={this.state.question} 
-                callbackFlight={this.props.callbackFlight}/>
+                <Flight state={this.state} 
+                callbackMaps={this.callbackMaps}/>
                 )
-        } else if (type === "transport") {
+        } else if (type === "transport" && this.state.TravelMode === "Train") {
             return (
                 <div>
                     <Map    state={this.state} 

@@ -18,22 +18,9 @@ import Grid from '@material-ui/core/Grid';
 import { QuizData } from '../Data/Fragen';
 import { ThemeProvider } from "@material-ui/core";
 
-/*
-const carPower = [
-    "Gasoline",
-    "Diesel",
-    "Electric",
-    "Hyprid",
-    "Gas"
-]
 
 
-const carType ={
-    small,
-    middle: 1,
-    SUV: 2
-}
-*/
+
 
 class Car extends React.Component {
     constructor() {

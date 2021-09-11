@@ -50,7 +50,7 @@ class Singlequestion extends React.Component {
 
 
             if (QuizData[currentIndex].options[index] === "Flugzeug") {
-                Travelmode = "Fligth";
+                Travelmode = "Flight";
             } else if (QuizData[currentIndex].options[index] === "Auto") {
                 Travelmode = "Car";
             } else if (QuizData[currentIndex].options[index] === "Zug") {
