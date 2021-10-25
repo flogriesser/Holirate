@@ -12,28 +12,48 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel'
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import '@fontsource/roboto';
-import { ScoreHeader, theme } from "../stylesUI";
+
+import MapsAutocomplete from "./MapsAutocomplete";
 import Grid from '@material-ui/core/Grid';
-import { QuizData } from '../Data/Fragen';
-import { ThemeProvider } from "@material-ui/core";
+import { CarQuestion } from '../Data/Fragen';
+import ScoreHeader from "../Style/ScoreHeader";
+import Sum from "../Helper/sum";
 
-/*
-const carPower = [
-    "Gasoline",
-    "Diesel",
-    "Electric",
-    "Hyprid",
-    "Gas"
-]
+//import { LoadScript, DirectionsService } from "@react-google-maps/api";
+
+//const google = window.google;
+var RouteDistance = 0;
 
 
-const carType ={
-    small,
-    middle: 1,
-    SUV: 2
-}
-*/
+
+function calculateDistance(origin, destination, callback) {
+    let directionsService = new window.google.maps.DirectionsService();
+    var mode = window.google.maps.TravelMode.DRIVING;
+  
+    var request = {
+      origin: origin,
+      destination: destination,
+      travelMode: mode
+    };
+    directionsService.route(request, function (result, status) {
+      if (status === window.google.maps.DirectionsStatus.OK) {
+        RouteDistance = result.routes[0].legs[0].distance.value / 1000;
+        console.log("Inside changeDirection " + RouteDistance);
+        callback(RouteDistance);
+      } else {
+        alert("Wir konnten leider keine Route für dich finden. Versuche es mit größen Städten in der Nähe");
+        console.error(`error fetching directions ${result}`);
+        RouteDistance = null;
+        callback(RouteDistance);
+      }
+    }
+    );
+  };
+
+
 
 class Car extends React.Component {
     constructor() {
@@ -42,9 +62,36 @@ class Car extends React.Component {
         this.indexValue = null;
     };
 
+    state = {
+        currentIndexCar: 0,
+        Power: null,
+        Type: null,
+        origin: "",
+        destination: ""
+    }
+
     forceUpdateHandler = () => {
         this.forceUpdate();
     };
+
+
+    callback = (distance) =>{
+        if(distance != null){
+            this.props.callbackCar(distance, this.state.Power, this.state.Type);
+        }else{
+            this.render();
+        }
+      }
+
+    callbackBackCar = () => {
+        if (this.state.currentIndexCar !== 0) {
+            this.setState({
+                currentIndexCar: this.state.currentIndexCar - 1,
+            });
+        } else {
+            this.props.callbackBack();
+        }
+    }
 
     radioHandler = (event) => {
         //console.log(event.target.value);
@@ -55,65 +102,143 @@ class Car extends React.Component {
     }
 
 
-
     //Check the answer
-    handleSubmit = (answer, index) => {
-        const { currentIndex } = this.props.state;
-        var index = this.indexValue - 1;
-
-        if (QuizData[currentIndex].category === "type") {
-            this.props.callbackCarType(index);
+    handleSubmit = (answer) => {
+        if (this.indexValue != null) {
+            const { currentIndexCar } = this.state;
+            var index = this.indexValue - 1;
+            if (currentIndexCar === 0) {
+                this.setState({
+                    currentIndexCar: currentIndexCar + 1,
+                    Power: index
+                });
+            } else if (currentIndexCar === 1) {
+                this.setState({
+                    currentIndexCar: currentIndexCar + 1,
+                    Type: index
+                });
+            }
+            this.indexValue = null; /*Needed to reset defaul locked answer*/
         }
-        else {
-            this.props.callbackCarPower(index);
-        }
-
     }/*checkAnswer*/
 
+    handleDistance = () => {
+        const { origin, destination } = this.state;
+        if (origin !== "" && destination !== "" && origin !== destination) {
+          calculateDistance(origin, destination, this.callback);
+          //console.log("After function " + distance);
+        }
+        this.render();
+      }
 
+    callbackStart = (Start) => {
+        this.setState({
+            origin: Start.description
+        })
+    }
 
+    callbackZiel = (Ziel) => {
+        this.setState({
+            destination: Ziel.description
+        })
+    }
 
     render() {
-        const { question, options, currentIndex, score } = this.props.state;
-        return (
-            <div>
-                <ScoreHeader score={score} currentIndex={currentIndex} />
-                <Grid container maxwidth="false" align="center" justifyContent="center" alignItems="center" >
-                    <Grid item xs={12} sm={12} md={6} lg={4}
-                        style={{
-                            textAlign: 'center',
-                            align: 'center',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            width: '80%',
-                            margin: 'center'
-                        }}
-                    >
-                        <FormControl component="fieldset" >
-                            <FormLabel component="legend" aligncontent="center">{question}</FormLabel>
-                            <RadioGroup name="quiz" value={this.indexValue} onChange={this.radioHandler}>
-                                {
-                                    options.map((option, index) => (  //for each option, new paragrap
-                                        <FormControlLabel value={index + 1}
-                                            key={index + 1}//for dumb unique key
-                                            control={<Radio
-                                                color="primary"
-                                                checked={this.indexValue === (index + 1)} />}
-                                            label={option} />
-                                    ))
-                                }
-                            </RadioGroup>
-                            <br></br>
-                            <ThemeProvider theme={theme}>
-                                <Button variant='contained' color='primary' onClick={this.handleSubmit}>
-                                    Next
-                                </Button>
-                            </ThemeProvider>
-                        </FormControl>
+        const { currentIndexCar } = this.state;
+        const { score, currentIndex } = this.props.state;
+        const Score = Sum(score);
+
+        //console.log(this.state.Power);
+        //console.log(this.state.Type);
+
+        const question = CarQuestion[currentIndexCar].question;
+        const options = CarQuestion[currentIndexCar].options;
+
+        if (currentIndexCar < CarQuestion.length -1) {
+            return (
+                <div>
+                    <ScoreHeader score={Score} currentIndex={currentIndex} />
+                    <Grid container maxwidth="false" align="center" justifyContent="center" alignItems="center" >
+                        <Grid item xs={12} sm={12} md={6} lg={4}
+                            style={{
+                                textAlign: 'center',
+                                align: 'center',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                width: '80%',
+                                margin: 'center'
+                            }}
+                        >
+                            <FormControl component="fieldset" >
+                                <FormLabel component="legend" aligncontent="center">{question}</FormLabel>
+                                <RadioGroup name="quiz" value={this.indexValue} onChange={this.radioHandler}>
+                                    {
+                                        options.map((option, index) => (  //for each option, new paragrap
+                                            <FormControlLabel value={index + 1}
+                                                key={index + 1}//for dumb unique key
+                                                control={<Radio
+                                                    color="primary"
+                                                    checked={this.indexValue === (index + 1)} />}
+                                                label={option} />
+                                        ))
+                                    }
+                                </RadioGroup>
+                            </FormControl>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </div >
-        )
+                    <Grid container maxwidth="false" align="center" justifyContent="center" alignItems="center" >
+                        <div style={{ padding: 20 }}>
+                            <Button variant='contained' color='primary' startIcon={<ArrowLeftIcon></ArrowLeftIcon>} onClick={this.callbackBackCar}>
+                                Zurück
+                            </Button>
+                        </div>
+                        <div style={{ padding: 20 }}>
+                            <Button variant='contained' color='primary' margin={1} endIcon={<ArrowRightIcon></ArrowRightIcon>} onClick={this.handleSubmit}>
+                                Weiter
+                            </Button>
+                        </div>
+                    </Grid>
+                </div >
+            )
+        } else {
+            return (
+                <div>
+                    <ScoreHeader score={Score} currentIndex={currentIndex} />
+                    <Grid container maxwidth="false" align="center" justifyContent="center" alignItems="center" >
+                        <Grid item xs={12} sm={12} md={6} lg={4}
+                            style={{
+                                textAlign: 'center',
+                                align: 'center',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                width: '80%',
+                                margin: 'center'
+                            }}
+                        >
+                            <FormControl component="fieldset" >
+                                <FormLabel component="legend" aligncontent="center">{question}</FormLabel>
+                                <br></br>
+                                <MapsAutocomplete label="Herkunft" callbackPlace={this.callbackStart}></MapsAutocomplete>
+                                <br></br>
+                                <MapsAutocomplete label="Ziel" callbackPlace={this.callbackZiel}></MapsAutocomplete>
+                            </FormControl>
+                        </Grid>
+                    </Grid>
+                    <Grid container maxwidth="false" align="center" justifyContent="center" alignItems="center" >
+                        <div style={{ padding: 20 }}>
+                            <Button variant='contained' color='primary' startIcon={<ArrowLeftIcon></ArrowLeftIcon>} onClick={this.callbackBackCar}>
+                                Zurück
+                            </Button>
+                        </div>
+                        <div style={{ padding: 20 }}>
+                            <Button variant='contained' color='primary' margin={1} endIcon={<ArrowRightIcon></ArrowRightIcon>} onClick={this.handleDistance}>
+                                Weiter
+                            </Button>
+                        </div>
+                    </Grid>
+                </div >
+            );
+        }
     }
 }
 

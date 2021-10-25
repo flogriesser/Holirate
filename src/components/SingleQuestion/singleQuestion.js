@@ -11,12 +11,14 @@ import Button from '@material-ui/core/Button';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel'
+import FormLabel from '@material-ui/core/FormLabel';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import '@fontsource/roboto';
-import { ScoreHeader, theme } from "../stylesUI";
+import ScoreHeader from "../Style/ScoreHeader";
 import Grid from '@material-ui/core/Grid';
 import { QuizData } from '../Data/Fragen';
-import { ThemeProvider } from "@material-ui/core";
+import Sum from "../Helper/sum";
 
 
 
@@ -39,7 +41,6 @@ class Singlequestion extends React.Component {
         this.forceUpdateHandler();
     }
 
-
     //Check the answer
     handleSubmit = () => {
         if (this.indexValue != null) {
@@ -49,17 +50,13 @@ class Singlequestion extends React.Component {
             var index = this.indexValue - 1;
 
 
-            if (QuizData[currentIndex].options[index] === "Flugzeug") {
-                Travelmode = "Fligth";
-            } else if (QuizData[currentIndex].options[index] === "Auto") {
-                Travelmode = "Car";
-            } else if (QuizData[currentIndex].options[index] === "Zug") {
-                Travelmode = "Train";
+            if (currentIndex === QuizData.length - 1) {
+                Travelmode = QuizData[currentIndex].values[index];
             } else {
                 points = QuizData[currentIndex].values[index];
             }
 
-            this.indexValue = null;
+            this.indexValue = null; /*Needed to reset defaul locked answer*/
             this.props.callbackSingleQuestion(index, points, Travelmode);
         }
     }/*checkAnswer*/
@@ -67,50 +64,102 @@ class Singlequestion extends React.Component {
 
 
     render() {
-        const { question, options, currentIndex, score } = this.props.state;
-        //console.log("indexValue");
-        //console.log(this.indexValue);
-        return (
-            <div>
-                <ScoreHeader score={score} currentIndex={currentIndex} />
+        const { question, options, currentIndex } = this.props.state;
+        const Score = Sum(this.props.state.score)
 
-                <Grid container maxwidth="false" align="center" justifyContent="center" alignItems="center" >
-                    <Grid item xs={12} sm={12} md={6} lg={4}
-                        style={{
-                            textAlign: 'center',
-                            align: 'center',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            width: '80%',
-                            margin: 'center'
-                        }}
-                    >
-                        <FormControl component="fieldset" >
-                            <FormLabel component="legend" aligncontent="center">{question}</FormLabel>
-                            <RadioGroup name="quiz" value={this.indexValue} onChange={this.radioHandler}>
-                                {
-                                    options.map((option, index) => (  //for each option, new paragrap
-                                        <FormControlLabel value={index + 1}
-                                            key={index + 1}//for dumb unique key
-                                            control={<Radio
-                                                color="primary"
-                                                checked={this.indexValue === (index + 1)} />}
-                                            label={option} />
-                                    ))
-                                }
-                            </RadioGroup>
-                            <br></br>
-                            <ThemeProvider theme={theme}>
-                                <Button variant='contained' color='primary' onClick={this.handleSubmit}>
-                                    Next
-                                </Button>
-                            </ThemeProvider>
-                        </FormControl>
+        if (currentIndex === 0) {
+            return (
+                <div>
+                    <ScoreHeader score={Score} currentIndex={currentIndex} />
+                    <Grid container width="90%" maxWidth="90%" align="center" justifyContent="center" alignItems="center" >
+                        <Grid item xs={12} sm={12} md={4} lg={4}
+                        >
+                            <FormControl component="fieldset"
+                                style={{
+                                    textAlign: 'center',
+                                    align: 'left',
+                                    justifyContent: 'left',
+                                    alignItems: 'left',
+                                    width: '90%',
+                                    marginLeft: '5%'
+                                }}
+                            >
+                                <FormLabel component="legend" aligncontent="center">{question}</FormLabel>
+                                <RadioGroup name="quiz" value={this.indexValue} onChange={this.radioHandler}>
+                                    {
+                                        options.map((option, index) => (  //for each option, new paragrap
+                                            <FormControlLabel value={index + 1}
+                                                key={index + 1}//for dumb unique key
+
+                                                control={<Radio
+                                                    color="primary"
+                                                    checked={this.indexValue === (index + 1)} />}
+                                                label={option} />
+                                        ))
+                                    }
+                                </RadioGroup>
+                            </FormControl>
+                        </Grid>
                     </Grid>
-                </Grid>
+                    <Grid container maxwidth="false" align="center" justifyContent="center" alignItems="center" >
+                        <div style={{ padding: 20 }}>
+                            <Button variant='contained' color='primary' margin={1} endIcon={<ArrowRightIcon></ArrowRightIcon>} onClick={this.handleSubmit}>
+                                Weiter
+                            </Button>
+                        </div>
+                    </Grid>
+                </div >
+            );
+        }
+        else {
+            return (
+                <div>
+                    <ScoreHeader score={Score} currentIndex={currentIndex} />
+                    <Grid container width="90%" maxWidth="90%" align="center" justifyContent="center" alignItems="center" >
+                        <Grid item xs={12} sm={12} md={4} lg={4}
+                        >
+                            <FormControl component="fieldset"
+                                style={{
+                                    textAlign: 'center',
+                                    align: 'left',
+                                    justifyContent: 'left',
+                                    alignItems: 'left',
+                                    width: '90%',
+                                    marginLeft: '5%'
+                                }}
+                            >
+                                <FormLabel component="legend" aligncontent="center">{question}</FormLabel>
+                                <RadioGroup name="quiz" value={this.indexValue} onChange={this.radioHandler}>
+                                    {
+                                        options.map((option, index) => (  //for each option, new paragrap
+                                            <FormControlLabel value={index + 1}
+                                                key={index + 1}//for dumb unique key
 
-            </div >
-        )
+                                                control={<Radio
+                                                    color="primary"
+                                                    checked={this.indexValue === (index + 1)} />}
+                                                label={option} />
+                                        ))
+                                    }
+                                </RadioGroup>
+                            </FormControl>
+                        </Grid>
+                    </Grid>
+                    <Grid container maxwidth="false" align="center" justifyContent="center" alignItems="center" >
+                        <div style={{ padding: 20 }}>
+                            <Button variant='contained' color='primary' startIcon={<ArrowLeftIcon></ArrowLeftIcon>} onClick={this.props.callbackBackSingleQuestion}>
+                                Zurück
+                            </Button>
+                        </div>
+                        <div style={{ padding: 20 }}>
+                            <Button variant='contained' color='primary' margin={1} endIcon={<ArrowRightIcon></ArrowRightIcon>} onClick={this.handleSubmit}>
+                                Weiter
+                            </Button>
+                        </div>
+                    </Grid>
+                </div >
+            );
+        }
     }
 }
 

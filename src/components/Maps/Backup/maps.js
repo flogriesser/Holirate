@@ -29,7 +29,6 @@ let directionsService;
 class Map extends React.Component {
   state = {
     directions: null,
-    bounds: null
   };
 
   onMapLoad = map => {
@@ -88,16 +87,7 @@ class Map extends React.Component {
       }
     );
   };
-/*
-   sendDistance= () => {
-    if(RouteDistance !== 0)
-    {
-      //Quiz.setDistance(RouteDistance);
-      Quiz.afterMap();
-    }  
 
-  }
-*/
   render() {
     const currentIndex = this.props.currentIndex;
     return (

@@ -5,12 +5,10 @@
  * @Last Modified time: 2021-06-11 21:43:08
  */
 import React, { Component } from 'react'
-import { QuizData } from './Data/Fragen';
+import { QuizData, CarQuestion } from './Data/Fragen';
 import './circle.css';
 
-
-import Map from "./Maps/maps";
-
+import Train from "./Maps/maps";
 import Singlequestion from './SingleQuestion/singleQuestion';
 import QuizEnds from './Score/quizEnd';
 import Car from './Maps/car';
@@ -18,7 +16,6 @@ import Flight from './Flight/flight';
 
 
 class Quiz extends Component {
-
     state = {
         userAnswer: null,    //current users answer
         type: "single",         //question Type
@@ -29,23 +26,18 @@ class Quiz extends Component {
         ChoosenTipps: [],
         ChoosenHeadlines: [],
         quizEnd: false,
-        score: 0,
+        score: [0],
+
         distance: 0,
-        TravelMode: 'Car',
+        TravelMode: null,
         co2: 0,
-
-        /*num_backpags:0,*/    /*TODO not needed right now*/
-        /*kilo_backpags: 0,*/  /*TODO not needed right now*/
-
-
         carType: 0,
         carPower: 0,
-
-
-        directions: null,
-        bounds: null
     }
 
+    forceUpdateHandler = () => {
+        this.forceUpdate();
+    };
 
     //Component that holds the current quiz
     loadQuiz = () => {
@@ -58,12 +50,11 @@ class Quiz extends Component {
                 values: QuizData[currentIndex].values,
                 tipps: QuizData[currentIndex].tipps,
                 distance: 0,
-                TravelMode: "Car"
             }
         }
         )
     }
-    
+
     setDistance = (distanceKM) => {
         this.setState({
             distance: distanceKM
@@ -72,8 +63,8 @@ class Quiz extends Component {
 
     //Handles Click event for the next button
     nextQuestionHander = () => {
-        const {currentIndex} = this.state;
-        if (currentIndex === QuizData.length - 1) {
+        const { currentIndex } = this.state;
+        if (currentIndex === QuizData.length) {
             this.setState({
                 quizEnd: true
             })
@@ -84,15 +75,6 @@ class Quiz extends Component {
         }
     }
 
-    afterMap = () => {
-        //var distanceKM = document.getElementById("Distance").value;
-        //console.log(distanceKM)
-        this.setState({
-            currentIndex: this.state.currentIndex + 1,
-            //distance: distanceKM
-        })
-    }
-
     //Load the quiz once the component mounts
     componentDidMount() {
         this.loadQuiz();
@@ -101,7 +83,7 @@ class Quiz extends Component {
     //Update the component
     componentDidUpdate(prevProps, prevState) {
         const { currentIndex } = this.state;
-        if (this.state.currentIndex !== prevState.currentIndex) {
+        if (this.state.currentIndex !== prevState.currentIndex && this.state.currentIndex !== QuizData.length) {
             this.setState(() => {
                 return {
                     type: QuizData[currentIndex].type,
@@ -114,39 +96,34 @@ class Quiz extends Component {
         }
     }/*componentDidUpdate*/
 
-    callbackCarType = (index) =>{
+    callbackCar = (distance, power, type) => {
         this.setState({
-            carType: index
+            distance: distance,
+            carPower: power,
+            carType: type
         })
-        /*
-        if(QuizData[this.state.currentIndex].tipps[index].startsWith('Tipp') === false){
-            this.state.ChoosenTipps.push(QuizData[this.state.currentIndex].tipps[index]);
-        }
-        */
-        this.state.ChoosenTipps.push(QuizData[this.state.currentIndex].tipps[index]);
-        this.state.ChoosenHeadlines.push(QuizData[this.state.currentIndex].headline);
+        this.state.ChoosenTipps.push(CarQuestion[0].tipps[power]);
+        this.state.ChoosenHeadlines.push(CarQuestion[0].headline);
+        this.state.ChoosenTipps.push(CarQuestion[1].tipps[type]);
+        this.state.ChoosenHeadlines.push(CarQuestion[1].headline);
         console.log(this.state.ChoosenHeadlines);
         this.nextQuestionHander();
     }
 
-    callbackCarPower = (index) =>{
-        this.setState({
-            carPower: index
-        })
-
-        this.state.ChoosenTipps.push(QuizData[this.state.currentIndex].tipps[index]);
-        this.state.ChoosenHeadlines.push(QuizData[this.state.currentIndex].headline);
-        console.log(this.state.ChoosenHeadlines);
-        this.nextQuestionHander();
-    }
 
     callbackSingleQuestion = (index, points, Travelmode) => {
-        const {score, currentIndex} = this.state;
-        if(Travelmode === null){
-            this.setState({
-                score: score + points
-            });
-        }else{
+        const { currentIndex } = this.state;
+        if (Travelmode === null) {
+            if (this.state.score == null) {
+                this.setState({
+                    score: [0]
+                });
+            } else {
+                this.setState({
+                    score: this.state.score.concat([points])
+                });
+            }
+        } else {
             this.setState({
                 TravelMode: Travelmode
             })
@@ -155,76 +132,71 @@ class Quiz extends Component {
         this.state.ChoosenHeadlines.push(QuizData[this.state.currentIndex].headline);
         this.state.ChoosenTipps.push(QuizData[currentIndex].tipps[index]);
 
-        console.log(this.state.ChoosenHeadlines);
         this.nextQuestionHander();
     }
 
-    callbackFlight = (distance) =>{
-        return 0.369*distance;
-    }
-    
-    callbackMaps = (distance) =>{
+    callbackDistance = (distance) => {
         this.setState({
-            distance: distance
-        })
-        this.nextQuestionHander();
+            distance: distance,
+            quizEnd: true
+        });
     }
 
-    //Responds to the click of the finish button
-    finishHandler = () => {
-        if (this.state.currentIndex === QuizData.length - 1) {
+    callbackBack = () => {
+        if (this.state.currentIndex !== 0) {
             this.setState({
-                quizEnd: true
-            })
+                currentIndex: this.state.currentIndex - 1,
+                TravelMode: null
+            });
         }
+    }
 
+    callbackBackSingleQuestion = () => {
+        let score = this.state.score;
+        score.pop();
+
+        this.setState({
+            score: score
+        });
+        this.callbackBack();
     }
 
 
     render() {
-        const {quizEnd, currentIndex} = this.state //get the current state     
-        var type = QuizData[currentIndex].type;
-
+        const { quizEnd } = this.state //get the current state     
         if (quizEnd) {
             return (
-                <div>
-                    <QuizEnds state={this.state}/>
-                </div>
+                <div> <QuizEnds state={this.state} /></div>
             )
         }
-        
 
-        if (type === "car" && this.state.TravelMode === "Car"){
-            return(
-                    <Car    state={this.state}
-                            callbackCarType={this.callbackCarType} 
-                            callbackCarPower={this.callbackCarPower}/>
+        if (this.state.TravelMode === "Car") {
+            return (
+                <Car state={this.state}
+                    callbackCar={this.callbackCar}
+                    callbackBack={this.callbackBack} />
             )
-        }else if (type === "flight" && this.state.TravelMode === "Flight"){
-            return(
-                <Flight score={this.state.score} 
-                currentIndex={this.state.currentIndex} 
-                question={this.state.question} 
-                callbackFlight={this.props.callbackFlight}/>
-                )
-        } else if (type === "transport") {
+        } else if (this.state.TravelMode === "Flight") {
+            return (
+                <Flight
+                    state={this.state}
+                    callbackDistance={this.callbackDistance}
+                    callbackBack={this.callbackBack} />
+            )
+        } else if (this.state.TravelMode === "Train") {
             return (
                 <div>
-                    <Map    state={this.state} 
-                            callbackMaps={this.callbackMaps}/>
+                    <Train state={this.state}
+                        callbackDistance={this.callbackDistance}
+                        callbackBack={this.callbackBack} />
                     <br></br>
-                </div > )   
-        }else if(type === "single") {
-            return(
-                <Singlequestion state={this.state} callbackSingleQuestion={this.callbackSingleQuestion}/>
+                </div >)
+        } else {
+            return (
+                <Singlequestion state={this.state}
+                    callbackSingleQuestion={this.callbackSingleQuestion}
+                    callbackBackSingleQuestion={this.callbackBackSingleQuestion} />
             )
-        }else{
-            /*If none of the above take next question*/
-            /*FIXME Better solution than return null!*/
-            this.setState({
-                currentIndex: this.state.currentIndex +1
-            })
-            return null;
         }
     }/*render*/
 
