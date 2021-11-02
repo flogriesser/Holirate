@@ -1,29 +1,9 @@
 import React from 'react';
 import Grid from "@material-ui/core/Grid";
 import Typography from '@material-ui/core/Typography';
-import { withStyles, } from "@material-ui/core/styles";
-//import { makeStyles } from "@material-ui/styles";
-import LinearProgress from "@material-ui/core/LinearProgress";
-
 import { QuizData } from '../Data/Fragen';
 
-
-const BorderLinearProgress = withStyles((theme) => ({
-    root: {
-        height: 20,
-        width: '80%',
-        borderRadius: 10,
-        justifyContent: 'center'
-    },
-    colorPrimary: {
-        backgroundColor:
-            theme.palette.grey[theme.palette.type === "light" ? 200 : 700]
-    },
-    bar: {
-        borderRadius: 5,
-        backgroundColor: "primary"
-    }
-}))(LinearProgress);
+import {BorderLinearProgress} from './BorderLinearProgress';
 
 
 

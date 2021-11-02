@@ -6,7 +6,6 @@
  */
 import React, { Component } from 'react'
 import { QuizData, CarQuestion } from './Data/Fragen';
-import './circle.css';
 
 import Train from "./Maps/maps";
 import Singlequestion from './SingleQuestion/singleQuestion';
@@ -25,6 +24,7 @@ class Quiz extends Component {
         tipps: null,
         ChoosenTipps: [],
         ChoosenHeadlines: [],
+        ChoosenAnswers: [],
         quizEnd: false,
         score: [0],
 
@@ -106,7 +106,8 @@ class Quiz extends Component {
         this.state.ChoosenHeadlines.push(CarQuestion[0].headline);
         this.state.ChoosenTipps.push(CarQuestion[1].tipps[type]);
         this.state.ChoosenHeadlines.push(CarQuestion[1].headline);
-        console.log(this.state.ChoosenHeadlines);
+        this.state.ChoosenAnswers.push(CarQuestion[0].options[power]);
+        this.state.ChoosenAnswers.push(CarQuestion[1].options[type]);
         this.nextQuestionHander();
     }
 
@@ -131,6 +132,7 @@ class Quiz extends Component {
 
         this.state.ChoosenHeadlines.push(QuizData[this.state.currentIndex].headline);
         this.state.ChoosenTipps.push(QuizData[currentIndex].tipps[index]);
+        this.state.ChoosenAnswers.push(QuizData[currentIndex].options[index]);
 
         this.nextQuestionHander();
     }
@@ -153,10 +155,19 @@ class Quiz extends Component {
 
     callbackBackSingleQuestion = () => {
         let score = this.state.score;
+        let ChoosenHeadlines = this.state.ChoosenHeadlines;
+        let ChoosenTipps = this.state.ChoosenTipps;
+        let ChoosenAnswers = this.state.ChoosenAnswers;
         score.pop();
+        ChoosenHeadlines.pop();
+        ChoosenTipps.pop();
+        ChoosenAnswers.pop();
 
         this.setState({
-            score: score
+            score: score,
+            ChoosenHeadlines: ChoosenHeadlines,
+            ChoosenTipps: ChoosenTipps,
+            ChoosenAnswers: ChoosenAnswers
         });
         this.callbackBack();
     }

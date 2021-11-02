@@ -64,8 +64,8 @@ export default function ScoreBoard(props) {
                                     rotation: 1 / 2 + 1 / 8,
                                     strokeLinecap: "butt",
                                     trailColor: "#eee",
-                                    textColor: "#66bb6a",
-                                    pathColor: "#66bb6a"
+                                    textColor: "primary",
+                                    pathColor: "primary"
                                 })}
                             />
                         );

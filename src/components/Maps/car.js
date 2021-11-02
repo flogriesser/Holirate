@@ -11,9 +11,11 @@ import Button from '@material-ui/core/Button';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel'
+import Typography from '@material-ui/core/Typography';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 import '@fontsource/roboto';
 
 import MapsAutocomplete from "./MapsAutocomplete";
@@ -27,31 +29,32 @@ import Sum from "../Helper/sum";
 //const google = window.google;
 var RouteDistance = 0;
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
 
 function calculateDistance(origin, destination, callback) {
     let directionsService = new window.google.maps.DirectionsService();
     var mode = window.google.maps.TravelMode.DRIVING;
-  
+
     var request = {
-      origin: origin,
-      destination: destination,
-      travelMode: mode
+        origin: origin,
+        destination: destination,
+        travelMode: mode
     };
     directionsService.route(request, function (result, status) {
-      if (status === window.google.maps.DirectionsStatus.OK) {
-        RouteDistance = result.routes[0].legs[0].distance.value / 1000;
-        console.log("Inside changeDirection " + RouteDistance);
-        callback(RouteDistance);
-      } else {
-        alert("Wir konnten leider keine Route für dich finden. Versuche es mit größen Städten in der Nähe");
-        console.error(`error fetching directions ${result}`);
-        RouteDistance = null;
-        callback(RouteDistance);
-      }
+        if (status === window.google.maps.DirectionsStatus.OK) {
+            RouteDistance = result.routes[0].legs[0].distance.value / 1000;
+            console.log("Inside changeDirection " + RouteDistance);
+            callback(RouteDistance);
+        } else {
+            RouteDistance = null;
+            callback(RouteDistance);
+        }
     }
     );
-  };
+};
 
 
 
@@ -67,7 +70,8 @@ class Car extends React.Component {
         Power: null,
         Type: null,
         origin: "",
-        destination: ""
+        destination: "",
+        errorMessage: false
     }
 
     forceUpdateHandler = () => {
@@ -75,13 +79,16 @@ class Car extends React.Component {
     };
 
 
-    callback = (distance) =>{
-        if(distance != null){
+    callback = (distance) => {
+        if (distance != null) {
             this.props.callbackCar(distance, this.state.Power, this.state.Type);
-        }else{
+        } else {
+            this.setState({
+                errorMessage: true
+            });
             this.render();
         }
-      }
+    }
 
     callbackBackCar = () => {
         if (this.state.currentIndexCar !== 0) {
@@ -124,24 +131,38 @@ class Car extends React.Component {
 
     handleDistance = () => {
         const { origin, destination } = this.state;
-        if (origin !== "" && destination !== "" && origin !== destination) {
-          calculateDistance(origin, destination, this.callback);
-          //console.log("After function " + distance);
+        if (origin !== "" && destination !== "" && origin !== destination && origin !== null && destination !== null) {
+            calculateDistance(origin, destination, this.callback);
+            //console.log("After function " + distance);
         }
-        this.render();
-      }
+        //this.render();
+    }
 
     callbackStart = (Start) => {
-        this.setState({
-            origin: Start.description
-        })
+        if (Start != null) {
+            this.setState({
+                origin: Start.description
+            })
+        }
     }
 
     callbackZiel = (Ziel) => {
-        this.setState({
-            destination: Ziel.description
-        })
+        if (Ziel != null) {
+            this.setState({
+                destination: Ziel.description
+            })
+        }
     }
+
+    handleMessageClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        this.setState({
+            errorMessage: false
+        })
+    };
+
 
     render() {
         const { currentIndexCar } = this.state;
@@ -154,7 +175,7 @@ class Car extends React.Component {
         const question = CarQuestion[currentIndexCar].question;
         const options = CarQuestion[currentIndexCar].options;
 
-        if (currentIndexCar < CarQuestion.length -1) {
+        if (currentIndexCar < CarQuestion.length - 1) {
             return (
                 <div>
                     <ScoreHeader score={Score} currentIndex={currentIndex} />
@@ -170,7 +191,9 @@ class Car extends React.Component {
                             }}
                         >
                             <FormControl component="fieldset" >
-                                <FormLabel component="legend" aligncontent="center">{question}</FormLabel>
+                                <Typography variant="h6" aligncontent="center" gutterBottom component="div">
+                                    {question}
+                                </Typography>
                                 <RadioGroup name="quiz" value={this.indexValue} onChange={this.radioHandler}>
                                     {
                                         options.map((option, index) => (  //for each option, new paragrap
@@ -203,6 +226,11 @@ class Car extends React.Component {
         } else {
             return (
                 <div>
+                    <Snackbar open={this.state.errorMessage} autoHideDuration={6000} onClose={this.state.handleMessageClose}>
+                        <Alert onClose={this.handleMessageClose} severity="error" sx={{ width: '80%' }}>
+                            Wir konnten leider kein Route finden! Probiere es mit größeren Städten in der Nähe.
+                        </Alert>
+                    </Snackbar>
                     <ScoreHeader score={Score} currentIndex={currentIndex} />
                     <Grid container maxwidth="false" align="center" justifyContent="center" alignItems="center" >
                         <Grid item xs={12} sm={12} md={6} lg={4}
@@ -216,7 +244,9 @@ class Car extends React.Component {
                             }}
                         >
                             <FormControl component="fieldset" >
-                                <FormLabel component="legend" aligncontent="center">{question}</FormLabel>
+                                <Typography variant="h6" aligncontent="center" gutterBottom component="div">
+                                    {question}
+                                </Typography>
                                 <br></br>
                                 <MapsAutocomplete label="Herkunft" callbackPlace={this.callbackStart}></MapsAutocomplete>
                                 <br></br>

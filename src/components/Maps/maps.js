@@ -5,13 +5,15 @@
  * @Last Modified time: 2021-06-12 08:35:09
  */
 import React from 'react';
-import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import MapsAutocomplete from "./MapsAutocomplete";
 import Button from '@material-ui/core/Button';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import Typography from '@material-ui/core/Typography';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 import ScoreHeader from "../Style/ScoreHeader";
 
@@ -23,6 +25,9 @@ import Sum from "../Helper/sum";
 
 var RouteDistance = 0;
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 
 function calculateDistance(origin, destination, callback) {
@@ -40,8 +45,6 @@ function calculateDistance(origin, destination, callback) {
       console.log("Inside changeDirection " + RouteDistance);
       callback(RouteDistance);
     } else {
-      alert("Wir konnten leider keine Route für dich finden. Versuche es mit größen Städten in der Nähe");
-      console.error(`error fetching directions ${result}`);
       RouteDistance = null;
       callback(RouteDistance);
     }
@@ -57,12 +60,16 @@ class Train extends React.Component {
     distance: null,
     origin: "",
     destination: "",
+    errorMessage: false
   };
 
   callback = (distance) => {
     if (distance != null) {
       this.props.callbackDistance(distance);
     } else {
+      this.setState({
+        errorMessage: true
+      })
       this.render();
     }
   }
@@ -70,53 +77,42 @@ class Train extends React.Component {
 
   handleSubmit = () => {
     const { origin, destination } = this.state;
-    if (origin !== "" && destination !== "" && origin !== destination) {
+    if (origin !== "" && destination !== "" && origin !== destination && origin !== null && destination !== null) {
+      console.log(origin, destination);
       var distance = calculateDistance(origin, destination, this.callback);
       console.log("After function " + distance);
     }
-    this.render();
+    //this.render();
   }
 
   callbackStart = (Start) => {
-    this.setState({
-      origin: Start.description
-    })
+    if (Start != null) {
+      this.setState({
+        origin: Start.description
+      })
+    }
   }
 
   callbackZiel = (Ziel) => {
-    this.setState({
-      destination: Ziel.description
-    })
+    if (Ziel != null) {
+      this.setState({
+        destination: Ziel.description
+      })
+    }
   }
 
-  /*
-    changeDirection = (origin, destination) => {
-      let directionsService = new window.google.maps.DirectionsService();
-      var mode = window.google.maps.TravelMode.TRANSIT;
-  
-      var request = {
-        origin: origin,
-        destination: destination,
-        travelMode: mode
-      };
-      directionsService.route(request, function (result, status) {
-        if (status === window.google.maps.DirectionsStatus.OK) {
-          RouteDistance = result.routes[0].legs[0].distance.value / 1000;
-          console.log("Inside changeDirection");
-          console.log(RouteDistance);
-          this.submitDistance(RouteDistance);
-        } else {
-          alert("Wir konnten leider keine Route für dich finden. Versuche es mit größen Städten in der Nähe");
-          console.error(`error fetching directions ${result}`);
-          RouteDistance = null;
-        }
-      }
-      );
-    };
-  */
   submitDistance = (distance) => {
     this.props.callbackDistance(distance);
   }
+
+  handleMessageClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({
+      errorMessage: false
+    })
+  };
 
 
   render() {
@@ -125,6 +121,11 @@ class Train extends React.Component {
     const question = TrainQuestion[0].question;
     return (
       <div>
+        <Snackbar open={this.state.errorMessage} autoHideDuration={6000} onClose={this.state.handleMessageClose}>
+          <Alert onClose={this.handleMessageClose} severity="error" sx={{ width: '80%' }}>
+            Wir konnten leider kein Route finden! Probiere es mit größeren Städten in der Nähe.
+          </Alert>
+        </Snackbar>
         <ScoreHeader score={score} currentIndex={currentIndex} />
         <Grid container maxwidth="false" align="center" justifyContent="center" alignItems="center" >
           <Grid item xs={12} sm={12} md={6} lg={4}
@@ -138,7 +139,9 @@ class Train extends React.Component {
             }}
           >
             <FormControl component="fieldset" >
-              <FormLabel component="legend" aligncontent="center">{question}</FormLabel>
+              <Typography variant="h6" aligncontent="center" gutterBottom component="div">
+                {question}
+              </Typography>
               <br></br>
               <MapsAutocomplete label="Herkunft" callbackPlace={this.callbackStart}></MapsAutocomplete>
               <br></br>

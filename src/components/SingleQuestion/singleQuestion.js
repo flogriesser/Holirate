@@ -11,15 +11,14 @@ import Button from '@material-ui/core/Button';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import Typography from '@material-ui/core/Typography';
 import '@fontsource/roboto';
 import ScoreHeader from "../Style/ScoreHeader";
 import Grid from '@material-ui/core/Grid';
 import { QuizData } from '../Data/Fragen';
 import Sum from "../Helper/sum";
-
 
 
 class Singlequestion extends React.Component {
@@ -71,8 +70,8 @@ class Singlequestion extends React.Component {
             return (
                 <div>
                     <ScoreHeader score={Score} currentIndex={currentIndex} />
-                    <Grid container width="90%" maxWidth="90%" align="center" justifyContent="center" alignItems="center" >
-                        <Grid item xs={12} sm={12} md={4} lg={4}
+                    <Grid container width="90%" align="center" justifyContent="center" alignItems="center" >
+                        <Grid item xs={12} sm={6} md={6} lg={3}
                         >
                             <FormControl component="fieldset"
                                 style={{
@@ -84,7 +83,9 @@ class Singlequestion extends React.Component {
                                     marginLeft: '5%'
                                 }}
                             >
-                                <FormLabel component="legend" aligncontent="center">{question}</FormLabel>
+                                <Typography variant="h5" aligncontent="center" gutterBottom component="div">
+                                    {question}
+                                </Typography>
                                 <RadioGroup name="quiz" value={this.indexValue} onChange={this.radioHandler}>
                                     {
                                         options.map((option, index) => (  //for each option, new paragrap
@@ -116,7 +117,7 @@ class Singlequestion extends React.Component {
                 <div>
                     <ScoreHeader score={Score} currentIndex={currentIndex} />
                     <Grid container width="90%" maxWidth="90%" align="center" justifyContent="center" alignItems="center" >
-                        <Grid item xs={12} sm={12} md={4} lg={4}
+                        <Grid item xs={12} sm={6} md={6} lg={3}
                         >
                             <FormControl component="fieldset"
                                 style={{
@@ -128,7 +129,9 @@ class Singlequestion extends React.Component {
                                     marginLeft: '5%'
                                 }}
                             >
-                                <FormLabel component="legend" aligncontent="center">{question}</FormLabel>
+                                <Typography variant="h5" aligncontent="center" gutterBottom component="div">
+                                    {question}
+                                </Typography>
                                 <RadioGroup name="quiz" value={this.indexValue} onChange={this.radioHandler}>
                                     {
                                         options.map((option, index) => (  //for each option, new paragrap

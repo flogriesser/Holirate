@@ -10,7 +10,12 @@ export default createTheme({
             main: '#66bb6a',
             contrastText: '#fff',
         },
-        secondary: { main: "#F1B929" }, // This is just green.A700 as hex.
+        secondary: { 
+            main: "#F1B929"  // This is just green.A700 as hex.
+        },
+        error: {
+            main: '#f44336'
+        }
     },
     overrides: {
         MuiButton: {

@@ -12,8 +12,8 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import MapsAutocomplete from "../Maps/MapsAutocomplete";
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
+import Typography from '@material-ui/core/Typography';
 import ScoreHeader from "../Style/ScoreHeader";
 import Sum from "../Helper/sum";
 
@@ -59,15 +59,17 @@ class Flight extends React.Component {
       var distance = getDistance(
         { latitude: originLat, longitude: originLng },
         { latitude: destinationLat, longitude: destinationLng }
-      )/1000;
+      ) / 1000;
       console.log("After function " + distance);
       this.props.callbackDistance(distance);
     }
-    this.render();
+    //this.render();
   }
 
   callbackStart = (Start) => {
-    geocodePlaceId(Start.place_id, this.callbackGeoCodeStart);
+    if (Start !== null) {
+      geocodePlaceId(Start.place_id, this.callbackGeoCodeStart);
+    }
   }
 
   callbackGeoCodeStart = (lat, lng) => {
@@ -78,7 +80,9 @@ class Flight extends React.Component {
   }
 
   callbackZiel = (Ziel) => {
-    geocodePlaceId(Ziel.place_id, this.callbackGeoCodeZiel);
+    if (Ziel !== null) {
+      geocodePlaceId(Ziel.place_id, this.callbackGeoCodeZiel);
+    }
   }
 
   callbackGeoCodeZiel = (lat, lng) => {
@@ -107,7 +111,9 @@ class Flight extends React.Component {
             }}
           >
             <FormControl component="fieldset" >
-              <FormLabel component="legend" aligncontent="center">{question}</FormLabel>
+              <Typography variant="h6" aligncontent="center" gutterBottom component="div">
+                {question}
+              </Typography>
               <br></br>
               <MapsAutocomplete label="Herkunft" callbackPlace={this.callbackStart}></MapsAutocomplete>
               <br></br>
