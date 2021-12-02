@@ -14,8 +14,10 @@ import TippsCard from "../Style/TippsCard";
 import Button from '@material-ui/core/Button';
 import Box from '@mui/material/Box';
 
+
+import COcompare from "../Style/COcompare";
 import DataCard from "../Style/DataCard";
-import CircularCard from "../Style/CircularCard";
+import DayCard from "../Style/DayCard";
 import Sum from "../Helper/sum";
 
 
@@ -56,20 +58,32 @@ class QuizEnds extends Component {
     render() {
         const { score, distance, ChoosenTipps, ChoosenHeadlines, ChoosenAnswers, TravelMode, carPower, carType } = this.props.state;
         var co2 = 0;
+        var co2Car = 0;
+        var co2Train = 0;
+        var co2Flight = 0;
         var EndScore = Sum(score);
         var bonus = 0;
         var DoubleDistance = distance.toFixed(0) * 2;
 
         if (TravelMode === 'Car') {
             co2 = this.calculateCar(DoubleDistance, carPower, carType);
+            co2Car = co2;
+            co2Train = this.calculateTrain(DoubleDistance);
+            co2Flight = this.calculateFlight(DoubleDistance);
             bonus = 0;
         }
         else if (TravelMode === 'Train') {
             co2 = this.calculateTrain(DoubleDistance);
+            co2Car = this.calculateCar(DoubleDistance, carPower, carType);
+            co2Train = co2;
+            co2Flight = this.calculateFlight(DoubleDistance);
             bonus = 0;
         }
         else if (TravelMode === 'Flight') {
             co2 = this.calculateFlight(DoubleDistance);
+            co2Car = this.calculateCar(DoubleDistance, 0, 1); /*Benziner Mittelklasse*/
+            co2Train = this.calculateTrain(DoubleDistance);
+            co2Flight = co2;
             bonus = 0;
         }
         EndScore = (EndScore + bonus + this.calcScore(co2)).toFixed(0);
@@ -89,42 +103,57 @@ class QuizEnds extends Component {
                     </Grid>
 
                     <Grid item xs={12} sm={12} md={12} lg={12}>
-                        <div style={{ maxWidth: "500px" }}>
+                        <div style={{ maxWidth: "350px" }}>
                             <ScoreBoard EndScore={EndScore}></ScoreBoard>
                         </div>
                     </Grid>
                     <Grid item xs={12} sm={12} md={12} lg={12} >
-                        <Typography item xs={12} sm={12} md={12} lg={12} variant="body1" maxwidth="80%" align="center" maxWidth="500px">
-                            Du erreichst {EndScore} von 100 Punkten. Der Großteil deines Scores wird über den CO² Ausstoß bestimmt.
-                            Hier kannst du dich am leichtesten verbessern, wenn du zum Beispiel die Transportmittel auf deiner Reise überdenkst.
-                            Konkrete Tipps, wie du deine Reise umweltfreundlicher gestalten kannst, findest du weiter unten.
-                        </Typography>
+                        <Box sx={{ width: '95%', maxWidth: '700px' }}>
+                            <Typography item xs={12} sm={12} md={12} lg={12} variant="body1" maxwidth="80%" align="justify" maxWidth="500px">
+                                Du erreichst {EndScore} von 100 Punkten. Der Großteil deines Scores wird über den CO² Ausstoß bestimmt.
+                                Hier kannst du dich am leichtesten verbessern, wenn du zum Beispiel die Transportmittel auf deiner Reise überdenkst.
+                                Konkrete Tipps, wie du deine Reise umweltfreundlicher gestalten kannst, findest du weiter unten.
+                            </Typography>
+                        </Box>
                         <Box sx={{ p: 2 }} />
                     </Grid>
-
                     <Grid item xs={12} sm={12} md={12} lg={12} >
                         <Typography xs={12} sm={12} md={12} lg={12} component="h5" variant="h5" maxwidth="80%">
                             Deine Daten:
                         </Typography>
                         <Box sx={{ p: 1 }} />
                     </Grid>
-                    <Grid item xs={6} sm={6} md={6} lg={6}>
-                        <DataCard Value={DoubleDistance} Type="Kilometer" Explanation="An- und Abreise"></DataCard>
-                    </Grid>
-                    <Grid item xs={6} sm={6} md={6} lg={6}>
-                        <DataCard Value={co2 + " kg"} Type="CO²" Explanation="Gesamter Verbrauch"></DataCard>
+                    <Grid container spacing={2} justifyContent="center">
+                        <Box sx={{ width: '95%', maxWidth: '700px' }}>
+                            <Grid container spacing={2} justifyContent="center">
+                                <Grid item xs={12} sm={6} md={6} lg={6}>
+                                    <DataCard Value={DoubleDistance} Type="Kilometer" Explanation="An- und Abreise"></DataCard>
+                                </Grid>
+                                <Grid item xs={12} sm={6} md={6} lg={6}>
+                                    <DataCard Value={co2 + " Kg"} Type="CO²" Explanation="Gesamter Verbrauch"></DataCard>
+                                </Grid>
+                                <Grid item xs={12} sm={6} md={6} lg={6}>
+                                    <DayCard Value={co2} unit=" %" Ref={21} Explanation="Deines Jahresverbrauchs. 2,1 Tonnen CO² sollten wir maximal im Jahr verbrauchen."></DayCard>
+                                </Grid>
+                                <Grid item xs={12} sm={6} md={6} lg={6}>
+                                    <DayCard Value={co2} unit=" Tage" Ref={412 / 365} Explanation="Musst du vegetarisch leben um die gleiche Menge CO² einzusparen, wie du mit dieser Reise verbrauchst."></DayCard>
+                                </Grid>
+                                <Grid item xs={12} sm={6} md={6} lg={6}>
+                                    <DayCard Value={co2} unit=" Buchen" Ref={12.5} Explanation="So viele Bäume (Buche) werden benötigt um den CO² Ausstoß zu kompensieren"></DayCard>
+                                </Grid>
+                                <Grid item xs={12} sm={6} md={6} lg={6}>
+                                    <DayCard Value={co2} unit=" Jeans" Ref={15.6} Explanation="Hätten mit diesem CO² Verbrauch hergestellt werden"></DayCard>
+                                </Grid>
+                                <Box sx={{ p: 2 }} />
+                            </Grid>
+                        </Box>
                     </Grid>
 
-                    <Grid item xs={6} sm={6} md={6} lg={6}>
-                        <Box sx={{ p: 3 }} />
-                        <CircularCard Value={co2} Ref={8100} Type="CO²" Explanation="Der jährlichen CO² Emissionen pro Kopf in der EU"></CircularCard>
-                    </Grid>
-                    <Grid item xs={6} sm={6} md={6} lg={6}>
-                        <Box sx={{ p: 3 }} />
-                        <CircularCard Value={co2} Ref={412} Type="CO²" Explanation="Wenn du so viele Tage/Jahre vegetarisch leben würdest, hättest du den gleichen CO2-Fußabdruck wie mit dieser Reise. "></CircularCard>
-                    </Grid>
+                    <COcompare choosen={TravelMode} co2={co2} co2Car={co2Car} co2Train={co2Train} co2Flight={co2Flight}></COcompare>
+
+
                     <div style={{ padding: "5% 5%" }}>
-                        <Box sx={{ p: 3 }} />
+                        <Box sx={{ p: 2 }} />
                         <Typography variant="h6" maxwidth="80%">
                             Hier noch ein paar Tipps für deine Reise:
                         </Typography>
@@ -139,6 +168,7 @@ class QuizEnds extends Component {
                             ))
                         }
                     </Grid>
+                    <Box sx={{ p: 3 }} />
                     <Grid container maxwidth="false" align="center" justifyContent="center" alignItems="center" >
                         <div style={{ padding: 20 }}>
                             <Button variant='contained' color='primary' onClick={this.reloadQuiz}>
@@ -147,7 +177,7 @@ class QuizEnds extends Component {
                         </div>
                         <div style={{ padding: 20 }}>
                             <Button variant='contained' color='primary' margin={1} href="https://holirate.com/feedback/" target="_blank">
-                                Feedback geben 
+                                Feedback geben
                             </Button>
                         </div>
                     </Grid>

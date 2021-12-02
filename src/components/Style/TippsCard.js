@@ -4,24 +4,21 @@ import { makeStyles } from "@material-ui/core/styles";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from '@material-ui/core/Typography';
 import CardMedia from '@mui/material/CardMedia';
+import Grid from '@material-ui/core/Grid';
 
 import { Icons } from '../Data/icons';
 
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles(theme => ({
     card: {
         display: 'flex',
-        width: '95%',
+        width: '90%',
         paddingBottom: "2%",
         paddingTop: "2%",
         flexGrow: 1,
         textAlign: 'left',
-        maxWidth: "700px"
+        maxWidth: "700px",
+        borderRadius: "16px"
     },
     header: {
         display: 'flex',

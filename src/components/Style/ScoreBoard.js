@@ -12,7 +12,7 @@ import AnimatedProgressProvider from "./AnimatedProgressProvider";
 
 export default function ScoreBoard(props) {
     return (
-        <div style={{ padding: '5% 20%' }}>
+        <div style={{ padding: '25% 20%' }}>
             <AnimatedProgressProvider
                 valueStart={0}
                 valueEnd={props.EndScore}
@@ -64,8 +64,8 @@ export default function ScoreBoard(props) {
                                     rotation: 1 / 2 + 1 / 8,
                                     strokeLinecap: "butt",
                                     trailColor: "#eee",
-                                    textColor: "primary",
-                                    pathColor: "primary"
+                                    textColor: "#66bb6a",
+                                    pathColor: "#66bb6a"
                                 })}
                             />
                         );
