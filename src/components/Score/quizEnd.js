@@ -151,14 +151,14 @@ class QuizEnds extends Component {
 
                     <COcompare choosen={TravelMode} co2={co2} co2Car={co2Car} co2Train={co2Train} co2Flight={co2Flight}></COcompare>
 
-
+                    <Grid container spacing={2} justifyContent="center">
                     <div style={{ padding: "5% 5%" }}>
                         <Box sx={{ p: 2 }} />
                         <Typography variant="h6" maxwidth="80%">
-                            Hier noch ein paar Tipps für deine Reise:
+                                Hier noch ein paar Tipps für deine Reise:
                         </Typography>
                     </div>
-
+                    </Grid>
                     <Grid container spacing={2} justifyContent="center">
                         {
                             ChoosenTipps.map((tipp, index) => (  //for each option, new paragrap
