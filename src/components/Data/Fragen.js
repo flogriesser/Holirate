@@ -7,7 +7,19 @@
 
 export const QuizData = [
   {
-    id: 0,
+    /*Please do not move Question "Transportmittel"*/
+    id: 1,
+    type: "single",
+    headline: "Transportmittel",
+    question: "Mit welchem Transportmittel reist du zu deinem Urlaubsziel?",
+    options: ["Auto", "Flugzeug", "Zug"],
+    values: ["Car", "Flight", "Train"],
+    tipps: ["Hast du dir als Alternative den Zug genauer angeschaut? Hier lässt sich Zeit, Geld und Nerven sparen. Falls das nicht passt, versuche dein Auto so weit es geht mit Personen zu füllen. Kennst du vielleicht schon https://www.blablacar.de?",
+      "Hast du auch einmal Alternativen in Betracht gezogen? Diese sind meist umweltschonender und ggf. sogar günstiger und entspannter. Unter https://www.rome2rio.com/de/  hast du einen guten Überblick über deine Möglichkeiten von A nach B zu kommen",
+      "Gute Wahl! Du hast dich für das umweltschonendste Verkehrsmittel entschieden und kannst dich in Ruhe zurücklehnen, dich unterhalten oder ein Buch lesen"]
+  },
+  {
+    id: 2,
     type: "single",
     headline: "Art der Reise",
     question: "Welche Art der Reise ist geplant?",
@@ -30,7 +42,7 @@ export const QuizData = [
     ]
   },
   {
-    id: 1,
+    id: 3,
     type: "single",
     headline: "Art der Unterkunft",
     question: "Wo wirst du übernachten?",
@@ -45,7 +57,7 @@ export const QuizData = [
     ]
   },
   {
-    id: 2,
+    id: 4,
     type: "single",
     headline: "Dauer der Reise",
     question: "Für wie viele Tage wird verreist?",
@@ -61,7 +73,7 @@ export const QuizData = [
     ]
   },
   {
-    id: 3,
+    id: 5,
     type: "single",
     headline: "Anzahl der Reisenden",
     question: "Mit wie vielen Leuten verreist Du?",
@@ -73,7 +85,7 @@ export const QuizData = [
       "So lassen sich nicht nur Kosten sondern auch Emissionen sparen, im vergleich zu allein Reisenden! Vielleicht schafft ihr es sogar noch jemanden mitzunehmen?"]
   },
   {
-    id: 4,
+    id: 6,
     type: "single",
     headline: "Fortbewegung vor Ort",
     question: "Wie bewegst du dich vor Ort?",
@@ -87,9 +99,9 @@ export const QuizData = [
       "Toll! Die perfekte Mischung aus Erlebnis, Sport und Erholung mit der höchsten Flexibilität! Flickzeug nicht vergessen. :)",
       "Selbst gerudert ist halb gewonnen. Fitness für den Tage kannst du somit wegstreichen.",
       "E-Scooter sind inzwischen in jeder größeren Stadt in allen Ecken verteilt. Das gute ist, dass du schnell und flexibel bist und beim Fahren keine Emissionen entstehen. Problematisch sind allerdings die Lithium-Akkus der Roller, die schwierig zu recyceln sind und der Stromverbrauch beim Aufladen. Fahrräder gewinnen daher unterm' Strich beim Verlgeich."]
-    },
+  },
   {
-    id: 5,
+    id: 7,
     type: "single",
     headline: "Souveniere",
     question: "Welcher Souvenier-Typ bis du?",
@@ -105,7 +117,7 @@ export const QuizData = [
       "Digital lassen sich wunderbar einzelne Fotos oder sogar ganze Alben teilen! Zusätzlich schonst du wichtige Ressourcen"]
   },
   {
-    id: 6,
+    id: 8,
     type: "single",
     headline: "Wie erzählst du von deiner Reise",
     question: "Wie erzählst du anderen von deiner Reise?",
@@ -117,17 +129,7 @@ export const QuizData = [
       "Hast du schon einmal von einem digitalen Fotoalbum gehört? Das hast du immer parat und kannst es einfach teilen!",
       "Cool! So musst du nicht alles drucken und kannst deine Erlebnisse präsentieren!"]
   },
-  {
-    id: 7,
-    type: "single",
-    headline: "Transportmittel",
-    question: "Mit welchem Transportmittel reist du zu deinem Urlaubsziel?",
-    options: ["Auto", "Flugzeug", "Zug"],
-    values: ["Car", "Flight", "Train"],
-    tipps: ["Hast du dir als Alternative den Zug genauer angeschaut? Hier lässt sich Zeit, Geld und Nerven sparen. Falls das nicht passt, versuche dein Auto so weit es geht mit Personen zu füllen. Kennst du vielleicht schon https://www.blablacar.de?",
-      "Hast du auch einmal Alternativen in Betracht gezogen? Diese sind meist umweltschonender und ggf. sogar günstiger und entspannter. Unter https://www.rome2rio.com/de/  hast du einen guten Überblick über deine Möglichkeiten von A nach B zu kommen",
-      "Gute Wahl! Du hast dich für das umweltschonendste Verkehrsmittel entschieden und kannst dich in Ruhe zurücklehnen, dich unterhalten oder ein Buch lesen"]
-  }
+
 ]
 
 export const CarQuestion = [

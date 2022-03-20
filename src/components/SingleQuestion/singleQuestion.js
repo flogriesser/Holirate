@@ -49,7 +49,8 @@ class Singlequestion extends React.Component {
             var index = this.indexValue - 1;
 
 
-            if (currentIndex === QuizData.length - 1) {
+            /*if (currentIndex === QuizData.length - 1) {*/
+            if (currentIndex === 0) {
                 Travelmode = QuizData[currentIndex].values[index];
             } else {
                 points = QuizData[currentIndex].values[index];

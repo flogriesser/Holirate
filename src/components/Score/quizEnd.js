@@ -13,7 +13,10 @@ import ScoreBoard from "../Style/ScoreBoard";
 import TippsCard from "../Style/TippsCard";
 import Button from '@material-ui/core/Button';
 import Box from '@mui/material/Box';
-
+import Accordion from '@mui/material/Accordion';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
 
 import COcompare from "../Style/COcompare";
 import DataCard from "../Style/DataCard";
@@ -149,25 +152,52 @@ class QuizEnds extends Component {
                         </Box>
                     </Grid>
 
-                    <COcompare choosen={TravelMode} co2={co2} co2Car={co2Car} co2Train={co2Train} co2Flight={co2Flight}></COcompare>
-
                     <Grid container spacing={2} justifyContent="center">
-                    <div style={{ padding: "5% 5%" }}>
-                        <Box sx={{ p: 2 }} />
-                        <Typography variant="h6" maxwidth="80%">
+                        <div style={{ padding: "5% 5%" }}>
+                            <Box sx={{ p: 2 }} />
+                            <Typography variant="h6" maxwidth="80%">
                                 Hier noch ein paar Tipps für deine Reise:
-                        </Typography>
-                    </div>
+                            </Typography>
+                        </div>
                     </Grid>
                     <Grid container spacing={2} justifyContent="center">
                         {
-                            ChoosenTipps.map((tipp, index) => (  //for each option, new paragrap
+                            ChoosenTipps.slice(0, 4).map((tipp, index) => (  //for each option, new paragrap
                                 <Grid item xs={12}>
                                     <TippsCard Headline={ChoosenHeadlines[index]} Answer={ChoosenAnswers[index]} id={index} tipp={tipp} />
                                 </Grid>
                             ))
                         }
                     </Grid>
+
+                    
+                    <Box sx={{ width: '95%', maxWidth: '700px' }}>
+                        
+                    <Box sx={{ p: 2 }} justifyContent="center" />
+
+                        <Accordion  justifyContent="center"> 
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel2a-content"
+                                id="panel2a-header"
+                            >
+                                <Typography>Hier findest du noch mehr Tipps</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Grid container spacing={2} justifyContent="center">
+                                    {
+                                        ChoosenTipps.slice(0, 4).map((tipp, index) => (  //for each option, new paragrap
+                                            <Grid item xs={12}>
+                                                <TippsCard Headline={ChoosenHeadlines[index]} Answer={ChoosenAnswers[index]} id={index} tipp={tipp} />
+                                            </Grid>
+                                        ))
+                                    }
+                                </Grid>
+                            </AccordionDetails>
+                        </Accordion>
+                    </Box>
+
+
                     <Box sx={{ p: 3 }} />
                     <Grid container maxwidth="false" align="center" justifyContent="center" alignItems="center" >
                         <div style={{ padding: 20 }}>
@@ -186,5 +216,9 @@ class QuizEnds extends Component {
         )
     };
 }
+
+/* Vergleich:
+<COcompare choosen={TravelMode} co2={co2} co2Car={co2Car} co2Train={co2Train} co2Flight={co2Flight}></COcompare>
+*/
 
 export default QuizEnds;
