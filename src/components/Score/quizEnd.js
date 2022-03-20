@@ -151,6 +151,17 @@ class QuizEnds extends Component {
                             </Grid>
                         </Box>
                     </Grid>
+                    <Grid container spacing={2} justifyContent="center">
+                        <div style={{ padding: "5% 5%" }}>
+                            <Box sx={{ p: 2 }} />
+                            <Typography variant="h6" maxwidth="80%">
+                                Hier zum Vergleich die anderen Transportmittel:
+                            </Typography>
+                        </div>
+                    </Grid>
+                    
+                    <COcompare choosen={TravelMode} co2={co2} co2Car={co2Car} co2Train={co2Train} co2Flight={co2Flight}></COcompare>
+
 
                     <Grid container spacing={2} justifyContent="center">
                         <div style={{ padding: "5% 5%" }}>
@@ -170,7 +181,7 @@ class QuizEnds extends Component {
                         }
                     </Grid>
 
-                    
+
                     <Box sx={{ width: '95%', maxWidth: '700px' }}>
                         
                     <Box sx={{ p: 2 }} justifyContent="center" />
